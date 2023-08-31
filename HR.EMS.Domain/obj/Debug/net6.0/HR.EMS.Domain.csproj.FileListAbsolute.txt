@@ -1,0 +1,12 @@
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.csproj.AssemblyReference.cache
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.AssemblyInfoInputs.cache
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.AssemblyInfo.cs
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.csproj.CoreCompileInputs.cache
+D:\Data\EMS\HR.EMS.Domain\bin\Debug\net6.0\HR.EMS.Domain.deps.json
+D:\Data\EMS\HR.EMS.Domain\bin\Debug\net6.0\HR.EMS.Domain.dll
+D:\Data\EMS\HR.EMS.Domain\bin\Debug\net6.0\HR.EMS.Domain.pdb
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.dll
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\refint\HR.EMS.Domain.dll
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\HR.EMS.Domain.pdb
+D:\Data\EMS\HR.EMS.Domain\obj\Debug\net6.0\ref\HR.EMS.Domain.dll

@@ -1,0 +1,17 @@
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Application.deps.json
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Application.dll
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Application.pdb
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Common.dll
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Domain.dll
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Common.pdb
+D:\Data\EMS\HR.EMS.Application\bin\Debug\net6.0\HR.EMS.Domain.pdb
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.csproj.AssemblyReference.cache
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.AssemblyInfoInputs.cache
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.AssemblyInfo.cs
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.csproj.CoreCompileInputs.cache
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.csproj.CopyComplete
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.dll
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\refint\HR.EMS.Application.dll
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\HR.EMS.Application.pdb
+D:\Data\EMS\HR.EMS.Application\obj\Debug\net6.0\ref\HR.EMS.Application.dll
