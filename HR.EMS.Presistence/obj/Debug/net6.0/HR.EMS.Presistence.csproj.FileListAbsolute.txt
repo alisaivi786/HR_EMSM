@@ -17,3 +17,22 @@ D:\Data\EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.dll
 D:\Data\EMS\HR.EMS.Presistence\obj\Debug\net6.0\refint\HR.EMS.Presistence.dll
 D:\Data\EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.pdb
 D:\Data\EMS\HR.EMS.Presistence\obj\Debug\net6.0\ref\HR.EMS.Presistence.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Presistence.deps.json
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Presistence.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Presistence.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Application.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Common.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Domain.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Application.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Common.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\bin\Debug\net6.0\HR.EMS.Domain.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.csproj.AssemblyReference.cache
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.GeneratedMSBuildEditorConfig.editorconfig
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.AssemblyInfoInputs.cache
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.AssemblyInfo.cs
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.csproj.CoreCompileInputs.cache
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.csproj.CopyComplete
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\refint\HR.EMS.Presistence.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\HR.EMS.Presistence.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Presistence\obj\Debug\net6.0\ref\HR.EMS.Presistence.dll

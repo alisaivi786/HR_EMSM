@@ -17,3 +17,22 @@ D:\Data\EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.dll
 D:\Data\EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\refint\HR.EMS.Infrastructure.dll
 D:\Data\EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.pdb
 D:\Data\EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\ref\HR.EMS.Infrastructure.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Infrastructure.deps.json
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Infrastructure.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Infrastructure.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Application.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Common.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Domain.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Application.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Common.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\bin\Debug\net6.0\HR.EMS.Domain.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.csproj.AssemblyReference.cache
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.AssemblyInfoInputs.cache
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.AssemblyInfo.cs
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.csproj.CoreCompileInputs.cache
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.csproj.CopyComplete
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\refint\HR.EMS.Infrastructure.dll
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\HR.EMS.Infrastructure.pdb
+D:\Angular Dev\HR_EMS\HR.EMS.Infrastructure\obj\Debug\net6.0\ref\HR.EMS.Infrastructure.dll
