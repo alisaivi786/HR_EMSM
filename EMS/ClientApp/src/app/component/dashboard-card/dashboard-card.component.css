@@ -1,0 +1,60 @@
+/* CSS for your dashboard-card component */
+.card {
+    width: 18rem;
+    border: 1px solid #ddd;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    margin: 10px;
+    transition: transform 0.2s;
+  }
+  
+  .card:hover {
+    transform: scale(1.02); /* Enlarge the card slightly on hover */
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .card-text {
+    margin-top: 10px;
+    font-size: 1rem;
+  }
+  
+  .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+  }
+  
+  .btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+  }
+  
+
+  /* Define the split-card container */
+.split-card {
+  display: flex; /* Use flexbox for the split layout */
+  background-color: #f0f0f0; /* Set a background color for the entire card */
+  border: none; /* Remove the card border if needed */
+  overflow: hidden; /* Hide any overflow content */
+  width: 18rem; /* Set the width of the entire card */
+}
+
+/* Define the left (blue) side */
+.card-blue {
+  flex: 1; /* Occupy 100% of the available width (80% of the card) */
+  background-color: #007bff; /* Set the blue background color */
+  color: #fff; /* Set text color on the blue side */
+}
+
+/* Define the right (orange) side */
+.card-orange {
+  flex: 0; /* Do not occupy any flex space (20% of the card) */
+  background-color: #ff9900; /* Set the orange background color */
+  color: #fff; /* Set text color on the orange side */
+}

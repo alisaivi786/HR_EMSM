@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DataService } from '../shared/DataService';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
@@ -10,7 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 export class NavMenuComponent {
   isExpanded = false;
 
-  constructor(private dataService: DataService,private cookieService: CookieService) {
+  constructor(private router: Router,private dataService: DataService,private cookieService: CookieService) {
   }
   collapse() {
     this.isExpanded = false;
@@ -20,19 +21,12 @@ export class NavMenuComponent {
     this.isExpanded = !this.isExpanded;
   }
  
-  login() {
-    this.dataService.login('alimushtaq', 'Password1').subscribe(response => {
-      // Assuming a successful login will return a token
-      console.log('Token:', response);
-      if (response.success && response.error === null) {
-        // Save the token to cookies
-        this.cookieService.set('auth_token', response.data.token);
-        console.log('Token saved to cookies:', response.data.token);
-      } else {
-        console.error('Authentication failed:', response.message);
-      }
-    }, error => {
-      console.error('Login error:', error);
-    });
+   // Logout method
+   logout() {
+    // Clear the authentication token from cookies
+    this.cookieService.delete('auth_token');
+    
+    // Navigate to the login page
+    this.router.navigate(['/login']);
   }
 }

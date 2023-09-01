@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EMS", "EMS\EMS.csproj", "{30F729E0-B462-4C3A-98A4-55D01F9AAB44}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0F99BE8F-5E75-4ACA-B402-1C77CBA934D8}"
+	ProjectSection(SolutionItems) = preProject
+		HR.EMS.Domain\LeaveTypes.cs = HR.EMS.Domain\LeaveTypes.cs
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{DF0598C8-3FA1-41B4-AD68-E87CD2670C3C}"
 EndProject

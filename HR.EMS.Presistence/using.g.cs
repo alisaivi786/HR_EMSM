@@ -22,9 +22,9 @@ global using global::HR.EMS.Common.Errors;
 global using global::System.Data.Common;
 global using global::HR.EMS.Presistence.JWT;
 
-global using global::Microsoft.IdentityModel.Tokens;
-global using global::System.IdentityModel.Tokens.Jwt;
-global using global::System.Security.Claims;
+//global using global::Microsoft.IdentityModel.Tokens;
+//global using global::System.IdentityModel.Tokens.Jwt;
+//global using global::System.Security.Claims;
 global using global::System.Text;
 
 global using global::Microsoft.EntityFrameworkCore.Metadata.Builders;

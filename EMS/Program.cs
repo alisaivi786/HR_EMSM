@@ -17,6 +17,7 @@ builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddInfrastructure(ApplicationSettings: application);
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -32,8 +33,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
+app.UseAuthentication(); // Make sure this line is present before UseAuthorization
 app.UseAuthorization();
-
+app.UseMiddleware<JwtTokenValidationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

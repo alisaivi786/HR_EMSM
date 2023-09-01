@@ -1,4 +1,5 @@
-﻿using HR.EMS.Common.Response;
+﻿using HR.EMS.Common.DTOs.LeaveDTO;
+using HR.EMS.Common.Response;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
@@ -18,4 +19,5 @@ public interface IGenericRepository<T> where T : class
     IQueryable<T> GetAll();
     IQueryable<T> GetAll(Expression<Func<T, bool>> predicate);
     Task<T> GetAvailable(int Id);
+    Task<DashboardDTO> DashboardData(int EmployeeId);
 }

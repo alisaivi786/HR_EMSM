@@ -21,7 +21,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         AuthRepository = new AuthRepository(_context,_configuration, _httpContextAccessor,_applicationSettings);
         //LeaveAllocationRepository = new LeaveAllocationRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
         //LeaveNatureRepository = new LeaveNatureRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
-        //LeaveRequestRepository = new LeaveRequestRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
+        LeaveRequestRepository = new LeaveRequestRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
         //LeaveTypeRepository = new LeaveTypeRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
         //RoleRepository = new RoleRepository_context,_configuration, _httpContextAccessor,_applicationSettings);
         //UserRepository = new UserRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
@@ -30,7 +30,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     public IAuthRepository AuthRepository { get; }
     //public ILeaveAllocationRepository LeaveAllocationRepository { get; }
     //public ILeaveNatureRepository LeaveNatureRepository { get; }
-    //public ILeaveRequestRepository LeaveRequestRepository { get; }
+    public ILeaveRequestRepository LeaveRequestRepository { get; }
     //public ILeaveTypeRepository LeaveTypeRepository { get; }
     //public IRoleRepository RoleRepository { get; }
     //public IUserRepository UserRepository { get; }

@@ -30,7 +30,7 @@ public class AuthRepository : GenericRepository<Users>, IAuthRepository
             }
 
             // Generate JWT token
-            var token = JWTTokenAuthincation.GenerateJwtToken(user);
+            var token = JWTTokenAuthincation.GenerateJwtToken3(user);
 
             var authResponse = new AuthResponseDTO()
             {

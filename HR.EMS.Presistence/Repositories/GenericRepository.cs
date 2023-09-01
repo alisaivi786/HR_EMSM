@@ -1,4 +1,10 @@
 ﻿
+using HR.EMS.Application.Configurations;
+using HR.EMS.Common.DTOs.LeaveDTO;
+using HR.EMS.Domain;
+using Microsoft.Data.SqlClient;
+using System.Data;
+
 namespace EpicLoanSystem.Infrastructure.Repositories;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : class
@@ -109,8 +115,89 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         };
         return response;
     }
+    // Define a method to save a LeaveRequest using a stored procedure
+    public async Task<int> SaveLeaveRequestAsync(LeaveRequest leaveRequest)
+    {
+        //using var connection = new SqlConnection(_applicationSettings.ConnectionString.SqlConnection);
+       // await connection.OpenAsync();
+        int newLeaveRequestId = 0;
 
+        using (SqlConnection connection = new SqlConnection(_applicationSettings.ConnectionString.SqlConnection))
+        {
+            using (SqlCommand command = new SqlCommand("SP_LeaveRequest_ADD", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
 
+                command.Parameters.AddWithValue("@StartDate", leaveRequest.StartDate);
+                command.Parameters.AddWithValue("@EndDate", leaveRequest.EndDate);
+                command.Parameters.AddWithValue("@LeaveTypeId", leaveRequest.LeaveTypeId);
+                command.Parameters.AddWithValue("@DateRequested", leaveRequest.DateRequested);
+                command.Parameters.AddWithValue("@RequestComments", leaveRequest.RequestComments);
+                command.Parameters.AddWithValue("@Approved", leaveRequest.Approved);
+                command.Parameters.AddWithValue("@Cancelled", leaveRequest.Cancelled);
+                command.Parameters.AddWithValue("@EmployeeId", leaveRequest.RequestingEmployeeId);
+                command.Parameters.AddWithValue("@RequestingEmployeeId", leaveRequest.RequestingEmployeeId);
+                command.Parameters.AddWithValue("@RowId", leaveRequest.RowId);
+                command.Parameters.AddWithValue("@DateCreated", leaveRequest.DateCreated);
+                command.Parameters.AddWithValue("@CreatedBy", leaveRequest.CreatedBy);
+                command.Parameters.AddWithValue("@DateModified", leaveRequest.DateModified);
+                command.Parameters.AddWithValue("@ModifiedBy", leaveRequest.ModifiedBy);
+                command.Parameters.AddWithValue("@DateDeleted", leaveRequest.DateDeleted);
+                command.Parameters.AddWithValue("@DeletedBy", leaveRequest.DeletedBy);
+                command.Parameters.AddWithValue("@IsActive", leaveRequest.IsActive);
+                command.Parameters.AddWithValue("@IsDeleted", leaveRequest.IsDeleted);
+
+                SqlParameter outputParameter = new SqlParameter("@NewLeaveRequestId", SqlDbType.Int)
+                {
+                    Direction = ParameterDirection.Output
+                };
+                command.Parameters.Add(outputParameter);
+
+                await connection.OpenAsync();
+                await command.ExecuteNonQueryAsync();
+
+                if (outputParameter.Value != DBNull.Value)
+                {
+                    newLeaveRequestId = (int)outputParameter.Value;
+                }
+            }
+        }
+
+        return newLeaveRequestId;
+    }
+
+    public async Task<DashboardDTO> DashboardData(int EmployeeId)
+    {
+        using (SqlConnection connection = new SqlConnection(_applicationSettings.ConnectionString.SqlConnection))
+        {
+            using (SqlCommand command = new SqlCommand("GetEmployeeLeaveStats", connection))
+            {
+                command.CommandType = CommandType.StoredProcedure;
+
+                // Add parameters for the stored procedure
+                command.Parameters.AddWithValue("@EmployeeId", EmployeeId);
+
+                await connection.OpenAsync();
+
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int totalCanceled = (int)reader["TotalCanceled"];
+                        int totalPending = (int)reader["TotalPending"];
+                        int totalApproved = (int)reader["TotalApproved"];
+
+                        return new DashboardDTO() {  Pending = totalPending.ToString(), Approved = totalApproved.ToString(), Reject = totalCanceled.ToString() };
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+            }
+        }
+        return new DashboardDTO() { Pending = "0", Approved = "0", Reject = "0"};
+    }
 
     private bool Save()
     {

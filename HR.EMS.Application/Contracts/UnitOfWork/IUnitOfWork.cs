@@ -14,7 +14,7 @@ public interface IUnitOfWork : IDisposable
     IAuthRepository AuthRepository { get; }
     //ILeaveAllocationRepository LeaveAllocationRepository { get; }
     //ILeaveNatureRepository LeaveNatureRepository { get; }
-    //ILeaveRequestRepository LeaveRequestRepository { get; }
+    ILeaveRequestRepository LeaveRequestRepository { get; }
     //ILeaveTypeRepository LeaveTypeRepository { get; }
     //IRoleRepository RoleRepository { get; }
     //IUserRepository UserRepository { get; }

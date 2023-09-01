@@ -23,6 +23,16 @@ const PROXY_CONFIG = [
     headers: {
       Connection: 'Keep-Alive'
     }
+  },
+  {
+    context: [
+      "/leaverequest",
+    ],
+    target: target, // Use the appropriate target URL for authentication
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
   }
 ]
 

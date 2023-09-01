@@ -1,0 +1,64 @@
+<app-nav-menu></app-nav-menu>
+<div class="container">
+  <form (ngSubmit)="onSubmit()" #leaveForm="ngForm">
+    <div class="form-group" ngModelGroup="leaveDetails">
+      <div class="form-group">
+        <label for="startDate">Start Date:</label>
+        <input type="date" id="startDate" name="startDate" required [(ngModel)]="startDate" #startDateField="ngModel">
+        <div *ngIf="startDateField.invalid && (startDateField.dirty || startDateField.touched)" class="alert alert-danger">
+          Start Date is required.
+        </div>
+      </div>
+    
+      <div class="form-group">
+        <label for="endDate">End Date:</label>
+        <input type="date" id="endDate" name="endDate" required [(ngModel)]="endDate" #endDateField="ngModel">
+        <div *ngIf="endDateField.invalid && (endDateField.dirty || endDateField.touched)" class="alert alert-danger">
+          End Date is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="leaveType">Leave Type:</label>
+        <select id="leaveType" name="leaveType" required [(ngModel)]="leaveType" #leaveTypeField="ngModel">
+          <option value="vacation">Vacation</option>
+          <option value="sick">Sick</option>
+          <option value="study">Study</option>
+          <!-- Add more leave types as needed -->
+        </select>
+        <div *ngIf="leaveTypeField.invalid && (leaveTypeField.dirty || leaveTypeField.touched)" class="alert alert-danger">
+          Leave Type is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Leave Nature:</label>
+        <div class="radio-group">
+          <label>
+            <input type="radio" id="travel" name="leaveNature" value="travel" required [(ngModel)]="leaveNature">
+            Travel
+          </label>
+          <label>
+            <input type="radio" id="local" name="leaveNature" value="local"  required [(ngModel)]="leaveNature">
+            Local
+          </label>
+        </div>
+        <div *ngIf="!leaveNature" class="alert alert-danger">
+          Leave Nature is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="remarks">Remarks:</label>
+        <textarea id="remarks" name="remarks" rows="4" cols="50" [(ngModel)]="remarks"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <!-- <button class="btn btn-primary btn-sm" type="submit" [disabled]="leaveForm.invalid">Submit</button>
+      <button class="btn btn-danger" style="margin-left: 20px;" [disabled]="leaveForm.invalid">Cancel</button> -->
+      <input class="btn btn-primary" type="submit" text="Submit" [disabled]="leaveForm.invalid"/>
+      <a class="btn btn-danger" style="margin-left: 5px; width: 80px;" type="button" routerLink="/fetch-data" text="Back">Cancel</a>
+    </div>
+  </form>
+</div>
