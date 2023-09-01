@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { WeatherForecast } from './weather-forecast.model';
-import { DataService } from '../shared/DataService';
+import { DataService } from '../shared/Service/DataService';
 import { LeaveResponse } from '../models/leave-response.model';
 import { LeaveData } from '../models/leave-data.model';
 import { DeleteLeave } from '../models/delete-leave.model';

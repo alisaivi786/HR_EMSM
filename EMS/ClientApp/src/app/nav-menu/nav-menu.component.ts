@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DataService } from '../shared/DataService';
+import { DataService } from '../shared/Service/DataService';
 import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
 @Component({

@@ -1,12 +1,12 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { WeatherForecast } from '../fetch-data/weather-forecast.model';
-import { AuthResponse } from '../models/auth-response.model';
-import { LeaveResponse } from '../models/leave-response.model';
-import { LeaveRequest } from '../models/apply-leave.model';
-import { DeleteLeave } from '../models/delete-leave.model';
-import { Dashboard } from '../models/dashboard.model';
+import { WeatherForecast } from '../../fetch-data/weather-forecast.model';
+import { AuthResponse } from '../../models/auth-response.model';
+import { LeaveResponse } from '../../models/leave-response.model';
+import { LeaveRequest } from '../../models/apply-leave.model';
+import { DeleteLeave } from '../../models/delete-leave.model';
+import { Dashboard } from '../../models/dashboard.model';
 
 @Injectable({
   providedIn: 'root'

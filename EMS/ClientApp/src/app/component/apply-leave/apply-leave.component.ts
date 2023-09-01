@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeaveRequest } from 'src/app/models/apply-leave.model';
-import { DataService } from 'src/app/shared/DataService';
+import { DataService } from 'src/app/shared/Service/DataService';
 
 @Component({
   selector: 'app-apply-leave',
