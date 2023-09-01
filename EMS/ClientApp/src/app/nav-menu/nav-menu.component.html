@@ -3,7 +3,7 @@
     class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
   >
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">EMS</a>
+      <a class="navbar-brand" [routerLink]="['/home']">EMS</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -25,12 +25,7 @@
             [routerLinkActive]="['link-active']"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
+            <a class="nav-link text-dark" [routerLink]="['/home']">Home</a>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
@@ -38,19 +33,10 @@
             >
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link" routerLink="/login">Login</a>
+            <a class="nav-link" [routerLink]="['/login']" (click)="login()">Login</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              User Name
-            </a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="/my/orders">My Orders</a>
-              <a class="dropdown-item" href="/admin/orders">Manage Orders</a>
-              <a class="dropdown-item" href="/admin/products">Manage Products</a>
-              <!-- <a class="dropdown-item" href="#" onclick="logout()">Log Out</a> -->
-            </div>
-          </li>
+          
+
         </ul>
         
         

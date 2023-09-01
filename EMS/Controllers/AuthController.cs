@@ -1,43 +1,62 @@
 ﻿using HR.EMS.Application.Contracts.UnitOfWork;
 using HR.EMS.Common.DTOs.AuthDTO;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace HR.EMS.API.Controllers;
-
-[ApiController]
-[Route("api/[controller]")]
-public class AuthController : ControllerBase
+namespace EMS.Controllers
 {
-    private readonly IUnitOfWork _unitOfWork;
-
-    public AuthController(IUnitOfWork unitOfWork)
+    [Route("[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
     {
-        _unitOfWork = unitOfWork;
-    }
+        private readonly IUnitOfWork _unitOfWork;
+        private static readonly string[] Summaries = new[]
+{
+        "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
+    };
+        private readonly ILogger<AuthController> _logger;
 
-    [HttpPost("login")]
-    public async Task<IActionResult> Login(AuthRequestDTO authRequest)
-    {
-        var authResponse = await _unitOfWork.AuthRepository.AuthenticateAsync(authRequest);
-
-        if (authResponse.Success)
+        public AuthController(ILogger<AuthController> logger, IUnitOfWork unitOfWork)
         {
-            return Ok(authResponse);
+            _logger = logger;
+            _unitOfWork = unitOfWork;
         }
 
-        return Unauthorized(authResponse);
-    }
-
-    [HttpPost("register")]
-    public async Task<IActionResult> Register(RegisterRequestDTO registerRequest)
-    {
-        var registrationResponse = await _unitOfWork.AuthRepository.RegisterAsync(registerRequest);
-
-        if (registrationResponse.Success)
+        [HttpGet]
+        public IEnumerable<WeatherForecast> Get()
         {
-            return Ok(registrationResponse);
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
         }
 
-        return BadRequest(registrationResponse);
+        [HttpGet("abc")]
+        public IEnumerable<WeatherForecast> GetABC()
+        {
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            {
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = Random.Shared.Next(-20, 55),
+                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
+            })
+            .ToArray();
+        }
+
+        [HttpPost("login2")]
+        public async Task<IActionResult> Login(AuthRequestDTO authRequest)
+        {
+            var authResponse = await _unitOfWork.AuthRepository.AuthenticateAsync(authRequest);
+
+            if (authResponse.Success)
+            {
+                return Ok(authResponse);
+            }
+
+            return Unauthorized(authResponse);
+        }
     }
 }

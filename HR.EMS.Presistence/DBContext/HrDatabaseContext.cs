@@ -3,6 +3,7 @@ using HR.EMS.Domain.Abstract;
 using HR.EMS.Infrastructure.DBContext.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using HR.EMS.Presistence.Configuration;
 
 namespace HR.EMS.Presistence.DBContext;
 
@@ -26,6 +27,7 @@ public class HrDatabaseContext : DbContext, IHrDatabaseContext
         modelBuilder.ApplyConfiguration(new LeaveTypeConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
+        modelBuilder.ApplyConfiguration(new LeaveRequestConfiguration());
         base.OnModelCreating(modelBuilder);
     }
 

@@ -208,6 +208,68 @@ namespace HR.EMS.Presistence.Migrations
                     b.HasIndex("LeaveTypeId");
 
                     b.ToTable("LeaveRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Approved = true,
+                            Cancelled = false,
+                            DateRequested = new DateTime(2023, 9, 1, 7, 20, 33, 395, DateTimeKind.Local).AddTicks(3083),
+                            EndDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 1L,
+                            RequestComments = "Vacation leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            StartDate = new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Approved = false,
+                            Cancelled = true,
+                            DateRequested = new DateTime(2023, 8, 27, 7, 20, 33, 395, DateTimeKind.Local).AddTicks(3093),
+                            EndDate = new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 2L,
+                            RequestComments = "Sick leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            StartDate = new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Approved = true,
+                            Cancelled = false,
+                            DateRequested = new DateTime(2023, 8, 22, 7, 20, 33, 395, DateTimeKind.Local).AddTicks(3100),
+                            EndDate = new DateTime(2023, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 3L,
+                            RequestComments = "Study leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            StartDate = new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Approved = true,
+                            Cancelled = false,
+                            DateRequested = new DateTime(2023, 8, 17, 7, 20, 33, 395, DateTimeKind.Local).AddTicks(3102),
+                            EndDate = new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 1L,
+                            RequestComments = "Holiday leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            StartDate = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("HR.EMS.Domain.LeaveTypes", b =>

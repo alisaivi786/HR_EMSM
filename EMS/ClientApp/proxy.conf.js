@@ -13,6 +13,16 @@ const PROXY_CONFIG = [
     headers: {
       Connection: 'Keep-Alive'
     }
+  },
+  {
+    context: [
+      "/auth",
+    ],
+    target: target, // Use the appropriate target URL for authentication
+    secure: false,
+    headers: {
+      Connection: 'Keep-Alive'
+    }
   }
 ]
 
