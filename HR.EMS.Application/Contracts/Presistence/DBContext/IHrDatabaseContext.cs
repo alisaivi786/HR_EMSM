@@ -16,5 +16,6 @@ namespace HR.EMS.Application.Contracts.Presistence.DBContext
         public DbSet<Roles> Roles { get; set; }
         public DbSet<LeaveTypes> LeaveTypes { get; set; }
         public DbSet<LeaveNatures> LeaveNatures { get; set; }
+        public DbSet<ApiLogs> ApiLogs { get; set; }
     }
 }

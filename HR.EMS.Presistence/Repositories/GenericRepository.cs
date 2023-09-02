@@ -29,7 +29,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         Table = context.Set<T>();
        
     }
-    public async Task<APIResponse<T>> Add(T entity)
+    public async Task<APIResponse<T>> AddAsync(T entity)
     {
         var e = Table.Add(entity);
         await _context.SaveChangesAsync();

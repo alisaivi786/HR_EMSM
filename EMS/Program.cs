@@ -1,22 +1,27 @@
 using HR.EMS.Application.Configurations;
 using HR.EMS.Application.Contracts.UnitOfWork;
+using HR.EMS.Infrastructure;
+using HR.EMS.Infrastructure.Middlewares;
 using HR.EMS.Presistence;
 using HR.EMS.Presistence.UnitOfWork;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Configuration Settings
 ApplicationSettings application = new();
 builder.Services.AddSingleton(application);
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddHttpContextAccessor();
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+// Add Custom Infrastructure
 builder.Services.AddInfrastructure(ApplicationSettings: application);
-
+// Add Middleware
 
 var app = builder.Build();
 
@@ -33,14 +38,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseRouting();
-app.UseAuthentication(); // Make sure this line is present before UseAuthorization
+app.UseAuthentication();
 app.UseAuthorization();
+// Use the custom middleware in the pipeline
+
 app.UseMiddleware<JwtTokenValidationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller}/{action=Index}/{id?}");
 
-app.MapFallbackToFile("index.html"); ;
+app.MapFallbackToFile("index.html");
+// Middleware after controller action method (e.g., response logging)
+//app.UseMiddleware<RequestResponseLoggingMiddleware>();
 
+app.UseMiddleware<RequestResponseMiddleware>();
 app.Run();

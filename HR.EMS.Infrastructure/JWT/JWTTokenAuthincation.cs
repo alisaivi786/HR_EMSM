@@ -1,10 +1,15 @@
 ﻿using HR.EMS.Domain;
 using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace HR.EMS.Presistence.JWT;
+namespace HR.EMS.Infrastructure.JWT;
 
 /*
  * Author: ALI RAZA MUSHTAQ
@@ -22,7 +27,7 @@ public static class JWTTokenAuthincation
     {
         // Generate a key with appropriate size
         var keyBytes = new Rfc2898DeriveBytes("EMS_HR_TEST", saltSize: 16, iterations: 10000).GetBytes(256 / 8);
-      
+
         var symmetricSecurityKey = new SymmetricSecurityKey(keyBytes);
 
         var tokenDescriptor = new SecurityTokenDescriptor
@@ -37,7 +42,7 @@ public static class JWTTokenAuthincation
         }),
             Expires = DateTime.UtcNow.AddDays(1), // Token expiration time
             SigningCredentials = new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256Signature)
-            
+
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -74,7 +79,7 @@ public static class JWTTokenAuthincation
     public static bool ValidateJwtToken(string token)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-       // var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("EMS_HR_TEST"));
+        // var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("EMS_HR_TEST"));
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("your-secret-key-with-at-least-128-bits"));
 
 
@@ -131,4 +136,3 @@ public static class JWTTokenAuthincation
 
 
 }
-

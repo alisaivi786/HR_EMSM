@@ -27,7 +27,7 @@ public class LeaveRequestRepository : GenericRepository<LeaveRequest>, ILeaveReq
             };
 
             //var result = await SaveLeaveRequestAsync(entity);
-            var addedEntity = await Add(entity);
+            var addedEntity = await AddAsync(entity);
 
             if (addedEntity.Success)
             {

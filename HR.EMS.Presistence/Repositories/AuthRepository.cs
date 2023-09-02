@@ -1,12 +1,15 @@
-﻿namespace HR.EMS.Presistence.Repositories;
+﻿using HR.EMS.Application.JWT;
+
+namespace HR.EMS.Presistence.Repositories;
 
 // Author: ALI RAZA MUSHTAQ
 // Email: alisaivi786@gmail.com
-
 public class AuthRepository : GenericRepository<Users>, IAuthRepository
 {
+    private readonly ApplicationSettings applicationSettings;
     public AuthRepository(HrDatabaseContext context, IConfiguration configuration, IHttpContextAccessor httpContextAccessor, ApplicationSettings applicationSettings) : base(context, configuration, httpContextAccessor, applicationSettings)
     {
+        this.applicationSettings = applicationSettings;
     }
 
     /// <summary>
@@ -30,7 +33,7 @@ public class AuthRepository : GenericRepository<Users>, IAuthRepository
             }
 
             // Generate JWT token
-            var token = JWTTokenAuthincation.GenerateJwtToken3(user);
+            var token = JWTTokenAuthincation.GenerateJwtToken(user, applicationSettings);
 
             var authResponse = new AuthResponseDTO()
             {
@@ -108,7 +111,7 @@ public class AuthRepository : GenericRepository<Users>, IAuthRepository
                 RoleId = registerRequest.RoleId
             };
 
-            var addedEntity = await Add(entity);
+            var addedEntity = await AddAsync(entity);
 
             if (addedEntity.Success)
             {

@@ -8,7 +8,7 @@ namespace HR.EMS.Application.Contracts.Presistence;
 public interface IGenericRepository<T> where T : class
 {
     DbSet<T> Table { get; }
-    Task<APIResponse<T>> Add(T entity);
+    Task<APIResponse<T>> AddAsync(T entity);
     Task<APIResponse<T>> Update(T entity);
     Task<APIResponse<T>> Delete(int id, int userId);
     Task<APIResponse<List<T>>> AddMultiple(IEnumerable<T> entities);

@@ -3,7 +3,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace HR.EMS.Presistence;
 
-public static class InfrastructureServicesRegistration
+public static class PersistenceServiceRegistration
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection
         services, ApplicationSettings ApplicationSettings)

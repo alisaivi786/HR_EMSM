@@ -1089,7 +1089,8 @@
         "dependencies": {
           "HR.EMS.Common": "1.0.0",
           "HR.EMS.Domain": "1.0.0",
-          "Microsoft.EntityFrameworkCore": "7.0.10"
+          "Microsoft.EntityFrameworkCore": "7.0.10",
+          "System.IdentityModel.Tokens.Jwt": "6.32.2"
         },
         "compile": {
           "bin/placeholder/HR.EMS.Application.dll": {}

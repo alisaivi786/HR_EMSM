@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HR.EMS.Presistence.Migrations
 {
     [DbContext(typeof(HrDatabaseContext))]
-    [Migration("20230831230951_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20230902142504_AddCols")]
+    partial class AddCols
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,76 @@ namespace HR.EMS.Presistence.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("HR.EMS.Domain.ApiLogs", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<long>("Id"));
+
+                    b.Property<long?>("CreatedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<long?>("DeletedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<bool?>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<long?>("ModifiedBy")
+                        .HasColumnType("bigint");
+
+                    b.Property<int?>("ProcessingDuration")
+                        .HasColumnType("int");
+
+                    b.Property<string>("RequestBody")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestHeaders")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestMethod")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RequestPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("RequestTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ResponseBody")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ResponseHeaders")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ResponseTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<Guid?>("RowId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("StatusCode")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ApiLogs");
+                });
 
             modelBuilder.Entity("HR.EMS.Domain.LeaveAllocations", b =>
                 {
@@ -69,7 +139,7 @@ namespace HR.EMS.Presistence.Migrations
                     b.Property<long>("Period")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("RowId")
+                    b.Property<Guid?>("RowId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -116,7 +186,7 @@ namespace HR.EMS.Presistence.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RowId")
+                    b.Property<Guid?>("RowId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -127,18 +197,20 @@ namespace HR.EMS.Presistence.Migrations
                         new
                         {
                             Id = 1L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(2516),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Travel",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("7be9d1d0-c9cb-4cfc-b30d-ab167e7f6cbe")
                         },
                         new
                         {
                             Id = 2L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(2552),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Local",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("59260370-ad87-4a70-a47f-bcd3d2a046f9")
                         });
                 });
 
@@ -198,7 +270,7 @@ namespace HR.EMS.Presistence.Migrations
                     b.Property<long>("RequestingEmployeeId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("RowId")
+                    b.Property<Guid?>("RowId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("StartDate")
@@ -211,6 +283,72 @@ namespace HR.EMS.Presistence.Migrations
                     b.HasIndex("LeaveTypeId");
 
                     b.ToTable("LeaveRequests");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1L,
+                            Approved = true,
+                            Cancelled = false,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5216),
+                            DateRequested = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5222),
+                            EndDate = new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 1L,
+                            RequestComments = "Vacation leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("f7c493e9-d0f4-49cd-ab57-36e9900f93e8"),
+                            StartDate = new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2L,
+                            Approved = false,
+                            Cancelled = true,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5226),
+                            DateRequested = new DateTime(2023, 8, 28, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5227),
+                            EndDate = new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 2L,
+                            RequestComments = "Sick leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("de088be8-abfa-44ca-8fe0-cb052af36c00"),
+                            StartDate = new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3L,
+                            Approved = true,
+                            Cancelled = false,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5234),
+                            DateRequested = new DateTime(2023, 8, 23, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5236),
+                            EndDate = new DateTime(2023, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 3L,
+                            RequestComments = "Study leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("db805e68-b665-4bf5-b776-1a59b2bba343"),
+                            StartDate = new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10L,
+                            Approved = true,
+                            Cancelled = false,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5239),
+                            DateRequested = new DateTime(2023, 8, 18, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5241),
+                            EndDate = new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsActive = true,
+                            IsDeleted = false,
+                            LeaveTypeId = 1L,
+                            RequestComments = "Holiday leave",
+                            RequestingEmployeeId = 1L,
+                            RowId = new Guid("aabd2285-e0af-4e2e-adc3-7af76f28f026"),
+                            StartDate = new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("HR.EMS.Domain.LeaveTypes", b =>
@@ -252,7 +390,7 @@ namespace HR.EMS.Presistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RowId")
+                    b.Property<Guid?>("RowId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -263,38 +401,42 @@ namespace HR.EMS.Presistence.Migrations
                         new
                         {
                             Id = 1L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(2900),
                             DefaultDays = 10,
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Sick Leave",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("bd5ffce5-488f-4058-9023-25bb079a2609")
                         },
                         new
                         {
                             Id = 2L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(2904),
                             DefaultDays = 20,
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Annual Leave",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("536de200-fda2-4d3b-9f82-630af05ec732")
                         },
                         new
                         {
                             Id = 3L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(2906),
                             DefaultDays = 15,
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Study Leave",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("a2026bf1-6c76-41be-b6ed-a5d82ecc4464")
                         },
                         new
                         {
                             Id = 4L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(2910),
                             DefaultDays = 90,
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Maternal Leave",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("3e083705-b4d7-40df-b67a-022e4920689c")
                         });
                 });
 
@@ -334,7 +476,7 @@ namespace HR.EMS.Presistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<Guid>("RowId")
+                    b.Property<Guid?>("RowId")
                         .HasColumnType("uniqueidentifier");
 
                     b.HasKey("Id");
@@ -345,18 +487,20 @@ namespace HR.EMS.Presistence.Migrations
                         new
                         {
                             Id = 1L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(3015),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Admin",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("52c40810-8c20-4319-9531-81117c8d0d87")
                         },
                         new
                         {
                             Id = 2L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(3018),
                             IsActive = true,
                             IsDeleted = false,
                             Name = "Employee",
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000")
+                            RowId = new Guid("458fe9f0-a448-44fc-a80c-146526649a5e")
                         });
                 });
 
@@ -410,7 +554,7 @@ namespace HR.EMS.Presistence.Migrations
                     b.Property<long>("RoleId")
                         .HasColumnType("bigint");
 
-                    b.Property<Guid>("RowId")
+                    b.Property<Guid?>("RowId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserName")
@@ -426,6 +570,7 @@ namespace HR.EMS.Presistence.Migrations
                         new
                         {
                             Id = 1L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5037),
                             Email = "ali.mushtaq@example.com",
                             FirstName = "Ali",
                             IsActive = true,
@@ -434,12 +579,13 @@ namespace HR.EMS.Presistence.Migrations
                             LastName = "Mushtaq",
                             Password = "sTqk3XRhvv9XejHhEKV0NGdW6ZrkDfls4x+9AwrB6TE=",
                             RoleId = 1L,
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            RowId = new Guid("298f44ae-d1e5-497d-bff4-2a5380d0b4f9"),
                             UserName = "alimushtaq"
                         },
                         new
                         {
                             Id = 2L,
+                            DateCreated = new DateTime(2023, 9, 2, 18, 25, 3, 753, DateTimeKind.Local).AddTicks(5059),
                             Email = "junaid.mushtaq@example.com",
                             FirstName = "Junaid",
                             IsActive = true,
@@ -448,7 +594,7 @@ namespace HR.EMS.Presistence.Migrations
                             LastName = "Mushtaq",
                             Password = "sTqk3XRhvv9XejHhEKV0NGdW6ZrkDfls4x+9AwrB6TE=",
                             RoleId = 2L,
-                            RowId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            RowId = new Guid("5757a19f-b1b3-4aa1-a950-9e34cac9198c"),
                             UserName = "junaidmushtaq"
                         });
                 });

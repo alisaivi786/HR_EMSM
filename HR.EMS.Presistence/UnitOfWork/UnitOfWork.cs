@@ -19,6 +19,7 @@ public class UnitOfWork : IUnitOfWork, IDisposable
         _configuration = configuration;
         
         AuthRepository = new AuthRepository(_context,_configuration, _httpContextAccessor,_applicationSettings);
+        ApiLogRepository = new ApiLogRepository(_context,_configuration, _httpContextAccessor,_applicationSettings);
         //LeaveAllocationRepository = new LeaveAllocationRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
         //LeaveNatureRepository = new LeaveNatureRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
         LeaveRequestRepository = new LeaveRequestRepository(_context, _configuration, _httpContextAccessor, _applicationSettings);
@@ -31,6 +32,9 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     //public ILeaveAllocationRepository LeaveAllocationRepository { get; }
     //public ILeaveNatureRepository LeaveNatureRepository { get; }
     public ILeaveRequestRepository LeaveRequestRepository { get; }
+
+    public IApiLogRepository ApiLogRepository { get; }
+
     //public ILeaveTypeRepository LeaveTypeRepository { get; }
     //public IRoleRepository RoleRepository { get; }
     //public IUserRepository UserRepository { get; }
@@ -39,15 +43,15 @@ public class UnitOfWork : IUnitOfWork, IDisposable
     {
         await _context.SaveChangesAsync();
     }
-
     public async Task<int> SaveChangesAsync()
     {
         return await _context.SaveChangesAsync();
     }
-
     public void Dispose()
     {
         _context.Dispose();
+
+
     }
 }
 

@@ -19,6 +19,8 @@ public interface IUnitOfWork : IDisposable
     //IRoleRepository RoleRepository { get; }
     //IUserRepository UserRepository { get; }
 
+    IApiLogRepository ApiLogRepository { get; }
+
     /// <summary>
     /// Asynchronously saves changes to the underlying database.
     /// </summary>

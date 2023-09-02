@@ -14,8 +14,8 @@ public class ApplicationSettings
         Value = "SqlServer"
     };
 
-    public string? TokenSecret = "EMS_HR_TEST";
-    public string? PasswordSaltKey = "EMS_HR_TEST";
+    public string TokenSecret = "C0224489-FEF2-4D71-B8E3-F24E54E2CCA8";
+    public string PasswordSaltKey = "C0224489-FEF2-4D71-B8E3-F24E54E2CCA8";
 }
 
 public class ConnectionStrings

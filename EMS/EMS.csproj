@@ -27,13 +27,17 @@
 
 	<ItemGroup>
 		<!-- Don't publish the SPA source files, but do show them in the project files list -->
+		<Compile Remove="Middleware\**" />
 		<Content Remove="$(SpaRoot)**" />
+		<Content Remove="Middleware\**" />
+		<EmbeddedResource Remove="Middleware\**" />
 		<None Remove="$(SpaRoot)**" />
+		<None Remove="Middleware\**" />
 		<None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\HR.EMS.Presistence\HR.EMS.Presistence.csproj" />
+	  <ProjectReference Include="..\HR.EMS.Infrastructure\HR.EMS.Infrastructure.csproj" />
 	</ItemGroup>
 
 	<Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

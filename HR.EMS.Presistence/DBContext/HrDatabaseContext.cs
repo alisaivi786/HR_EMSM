@@ -20,6 +20,7 @@ public class HrDatabaseContext : DbContext, IHrDatabaseContext
     public DbSet<Roles> Roles { get; set; }
     public DbSet<LeaveTypes> LeaveTypes { get; set; }
     public DbSet<LeaveNatures> LeaveNatures { get; set; }
+    public DbSet<ApiLogs> ApiLogs { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

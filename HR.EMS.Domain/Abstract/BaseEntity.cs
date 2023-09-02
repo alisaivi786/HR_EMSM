@@ -3,9 +3,9 @@
 public abstract class BaseEntity
 {
     public long Id { get; set; }
-    public Guid RowId { get; set; } = new Guid();
-    public DateTime? DateCreated { get; set; }
-    public long? CreatedBy { get; set; }
+    public Guid? RowId { get; set; } = Guid.NewGuid();
+    public DateTime? DateCreated { get; set; } = DateTime.Now;
+    public long? CreatedBy { get; set; } 
     public DateTime? DateModified { get; set; }
     public long? ModifiedBy { get; set; }
     public DateTime? DateDeleted { get; set; }

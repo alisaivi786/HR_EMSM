@@ -1,8 +1,9 @@
-﻿using HR.EMS.Application.Contracts.UnitOfWork;
+﻿using HR.EMS.Application.Configurations;
+using HR.EMS.Application.Contracts.UnitOfWork;
+using HR.EMS.Application.JWT;
 using HR.EMS.Common.DTOs.AuthDTO;
 using HR.EMS.Common.DTOs.LeaveDTO;
 using HR.EMS.Domain;
-using HR.EMS.Presistence.JWT;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,19 +15,20 @@ using System.Text;
 
 namespace EMS.Controllers
 {
-    //[Authorize]
     [Route("[controller]")]
     [ApiController]
     public class LeaveRequestController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
+        private readonly ApplicationSettings _applicationSettings;
 
         private readonly ILogger<LeaveRequestController> _logger;
 
-        public LeaveRequestController(ILogger<LeaveRequestController> logger, IUnitOfWork unitOfWork)
+        public LeaveRequestController(ILogger<LeaveRequestController> logger, IUnitOfWork unitOfWork,ApplicationSettings applicationSettings)
         {
             _logger = logger;
             _unitOfWork = unitOfWork;
+            _applicationSettings = applicationSettings;
         }
 
         [HttpGet("LeaveDetails")]
@@ -34,7 +36,7 @@ namespace EMS.Controllers
         {
 
             var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
-            var tokenValidate = JWTTokenAuthincation.ValidateJwtToken(token);
+            var tokenValidate = JWTTokenAuthincation.ValidateJwtToken(token, _applicationSettings);
 
             if (!tokenValidate)
                 return Unauthorized();
@@ -45,17 +47,6 @@ namespace EMS.Controllers
                 // Token is missing in the request header
                 return Unauthorized("Token is missing");
             }
-
-            
-            if (JWTTokenAuthincation.ValidateJwtToken(token, out var identity))
-            {
-                // Access the claims and identity data
-                var userId = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-                var userName = identity.FindFirst(ClaimTypes.Name)?.Value;
-                var userRole = identity.FindFirst(ClaimTypes.Role)?.Value;
-                
-            }
-
             var response = await _unitOfWork.LeaveRequestRepository.GetAllAsync();
 
             if (response.Success)
@@ -70,7 +61,7 @@ namespace EMS.Controllers
         public async Task<IActionResult> ApplyLeave(LeaveRequestDTO requestDTO)
         {
             var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
-            if (JWTTokenAuthincation.ValidateJwtToken(token, out var identity))
+            if (JWTTokenAuthincation.ValidateJwtToken(token, _applicationSettings, out var identity))
             {
                 // Access the claims and identity data
                 var userId = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -85,17 +76,14 @@ namespace EMS.Controllers
                 {
                     return Ok(response);
                 }
-
             }
-            
-
             return Unauthorized();
         }
         [HttpPut("DeleteLeave")]
         public async Task<IActionResult> DeleteLeave(LeaveDeleteDTO requestDTO)
         {
             var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
-            if (JWTTokenAuthincation.ValidateJwtToken(token, out var identity))
+            if (JWTTokenAuthincation.ValidateJwtToken(token, _applicationSettings, out var identity))
             {
                 // Access the claims and identity data
                 var userId = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -122,7 +110,7 @@ namespace EMS.Controllers
         {
 
             var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
-            if (JWTTokenAuthincation.ValidateJwtToken(token, out var identity))
+            if (JWTTokenAuthincation.ValidateJwtToken(token, _applicationSettings,out var identity))
             {
                 // Access the claims and identity data
                 var userId = identity.FindFirst(ClaimTypes.NameIdentifier)?.Value;
@@ -133,9 +121,7 @@ namespace EMS.Controllers
                 {
                     return Ok(response);
                 }
-
             }
-
             return Unauthorized();
         }
 

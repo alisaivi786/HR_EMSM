@@ -1,20 +1,29 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using HR.EMS.Presistence.JWT;
+﻿using HR.EMS.Application.Configurations;
+using HR.EMS.Application.JWT;
 using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace HR.EMS.Infrastructure.Middlewares;
 
 public class JwtTokenValidationMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly ApplicationSettings _applicationSettings;
 
-    public JwtTokenValidationMiddleware(RequestDelegate next)
+    public JwtTokenValidationMiddleware(RequestDelegate next,ApplicationSettings applicationSettings)
     {
         _next = next;
+        _applicationSettings = applicationSettings;
+
     }
 
     public async Task InvokeAsync(HttpContext context)
     {
+        
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
 
         // Check if the request is for the login endpoint
@@ -25,7 +34,7 @@ public class JwtTokenValidationMiddleware
             return;
         }
 
-        var tokenValidate = JWTTokenAuthincation.ValidateJwtToken(token);
+        var tokenValidate = JWTTokenAuthincation.ValidateJwtToken(token, _applicationSettings);
 
         if (!tokenValidate)
         {

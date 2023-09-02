@@ -20,7 +20,7 @@ global using global::HR.EMS.Common.DTOs.AuthDTO;
 
 global using global::HR.EMS.Common.Errors;
 global using global::System.Data.Common;
-global using global::HR.EMS.Presistence.JWT;
+//global using global::HR.EMS.Presistence.JWT;
 
 //global using global::Microsoft.IdentityModel.Tokens;
 //global using global::System.IdentityModel.Tokens.Jwt;
