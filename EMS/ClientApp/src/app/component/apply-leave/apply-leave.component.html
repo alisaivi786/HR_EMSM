@@ -1,64 +1,46 @@
-<!-- <app-nav-menu></app-nav-menu> -->
-<div class="container">
-  <form (ngSubmit)="onSubmit()" #leaveForm="ngForm">
-    <div class="form-group" ngModelGroup="leaveDetails">
-      <div class="form-group">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate" name="startDate" required [(ngModel)]="startDate" #startDateField="ngModel">
-        <div *ngIf="startDateField.invalid && (startDateField.dirty || startDateField.touched)" class="alert alert-danger">
-          Start Date is required.
-        </div>
-      </div>
-    
-      <div class="form-group">
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate" name="endDate" required [(ngModel)]="endDate" #endDateField="ngModel">
-        <div *ngIf="endDateField.invalid && (endDateField.dirty || endDateField.touched)" class="alert alert-danger">
-          End Date is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="leaveType">Leave Type:</label>
-        <select id="leaveType" name="leaveType" required [(ngModel)]="leaveType" #leaveTypeField="ngModel">
-          <option value="vacation">Vacation</option>
-          <option value="sick">Sick</option>
-          <option value="study">Study</option>
-          <!-- Add more leave types as needed -->
-        </select>
-        <div *ngIf="leaveTypeField.invalid && (leaveTypeField.dirty || leaveTypeField.touched)" class="alert alert-danger">
-          Leave Type is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label>Leave Nature:</label>
-        <div class="radio-group">
-          <label>
-            <input type="radio" id="travel" name="leaveNature" value="travel" required [(ngModel)]="leaveNature">
-            Travel
-          </label>
-          <label>
-            <input type="radio" id="local" name="leaveNature" value="local"  required [(ngModel)]="leaveNature">
-            Local
-          </label>
-        </div>
-        <div *ngIf="!leaveNature" class="alert alert-danger">
-          Leave Nature is required.
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label for="remarks">Remarks:</label>
-        <textarea id="remarks" name="remarks" rows="4" cols="50" [(ngModel)]="remarks"></textarea>
-      </div>
+<form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="startDate">Start Date</label>
+    <input type="date" id="startDate" class="form-control" formControlName="startDate" />
+    <div *ngIf="leaveForm.get('startDate').invalid && leaveForm.get('startDate').touched" class="text-danger">
+      Start Date is required.
     </div>
+  </div>
 
-    <div class="form-group">
-      <!-- <button class="btn btn-primary btn-sm" type="submit" [disabled]="leaveForm.invalid">Submit</button>
-      <button class="btn btn-danger" style="margin-left: 20px;" [disabled]="leaveForm.invalid">Cancel</button> -->
-      <input class="btn btn-primary" type="submit" text="Submit" [disabled]="leaveForm.invalid"/>
-      <a class="btn btn-danger" style="margin-left: 5px; width: 80px;" type="button" routerLink="/leave-data" text="Back">Cancel</a>
+  <div class="form-group">
+    <label for="endDate">End Date</label>
+    <input type="date" id="endDate" class="form-control" formControlName="endDate" />
+    <div *ngIf="leaveForm.get('endDate').invalid && leaveForm.get('endDate').touched" class="text-danger">
+      End Date is required.
     </div>
-  </form>
-</div>
+  </div>
+
+  <div class="form-group">
+    <label for="leaveNature">Leave Nature</label>
+    <input type="text" id="leaveNature" class="form-control" formControlName="leaveNature" />
+    <div *ngIf="leaveForm.get('leaveNature').invalid && leaveForm.get('leaveNature').touched" class="text-danger">
+      Leave Nature is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="leaveType">Leave Type</label>
+    <select id="leaveType" class="form-control" formControlName="leaveType">
+      <option value="">Select Leave Type</option>
+      <option value="Paid">Paid</option>
+      <option value="Unpaid">Unpaid</option>
+      <option value="Sick">Sick</option>
+      <option value="Vacation">Vacation</option>
+    </select>
+    <div *ngIf="leaveForm.get('leaveType').invalid && leaveForm.get('leaveType').touched" class="text-danger">
+      Leave Type is required.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="remarks">Remarks</label>
+    <textarea id="remarks" class="form-control" formControlName="remarks"></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LeaveService } from 'src/app/Services/LeaveService';
-import { LeaveRequest } from 'src/app/models/apply-leave.model';
 
 
 @Component({
@@ -10,43 +9,38 @@ import { LeaveRequest } from 'src/app/models/apply-leave.model';
   styleUrls: ['./apply-leave.component.css']
 })
 export class ApplyLeaveComponent implements OnInit {
-  startDate: Date = new Date(); // Set a default date, e.g., today's date
-  endDate: Date = new Date();   // Set a default date, e.g., today's date
-  leaveType: string = '';       // Initialize with an empty string
-  leaveNature: string = '';     // Initialize with an empty string
-  remarks: string = '';         // Initialize with an empty string
+  leaveForm: FormGroup;
 
-  leaveRequest: LeaveRequest = {
-    startDate: this.startDate,
-    endDate: this.endDate,
-    leaveTypeId: 1,            // Replace with the actual leave type ID
-    requestComments: this.remarks,
-    requestingEmployeeId: 123, // Replace with the actual employee ID
-    leaveId:0
-  };
-
-  constructor(private leaveService: LeaveService, private router: Router) { }
+  constructor( private router: Router,private fb: FormBuilder) { }
 
   ngOnInit(): void {
-    // Set default values here if needed
-    this.leaveNature = 'local'; // Set 'local' as the default value
+    this.leaveForm = this.fb.group({
+      startDate: ['2023-09-01', Validators.required], // Set the default start date here
+      endDate: ['2023-09-10', Validators.required],   // Set the default end date here
+      leaveNature: ['local', Validators.required],     // Set the default leave nature here
+      leaveType: ['Paid', Validators.required],         // Set the default leave type here
+      remarks: ['Default remarks'],                     // Set the default remarks here
+    });
   }
 
-  onSubmit() {
-    this.leaveRequest.startDate = this.startDate;
-    this.leaveRequest.endDate = this.endDate;
-    this.leaveRequest.leaveTypeId = 1; // Replace with the actual leave type ID
-    this.leaveRequest.requestComments = this.remarks;
-    this.leaveRequest.requestingEmployeeId = 123; // Replace with the actual employee ID
 
-    this.leaveService.applyLeave(this.leaveRequest).subscribe(
-      (response) => {
-        this.router.navigate(['/leave-data']);
-      },
-      (error) => {
-        console.error('Error submitting leave request:', error);
-        // Handle error scenarios
+
+  onSubmit() {
+    if (this.leaveForm.valid) {
+      // Handle form submission here
+      console.log(this.leaveForm.value);
+    } else {
+      // Mark all form controls as touched to display validation messages
+      this.markFormGroupTouched(this.leaveForm);
+    }
+  }
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
       }
-    );
+    });
   }
 }
