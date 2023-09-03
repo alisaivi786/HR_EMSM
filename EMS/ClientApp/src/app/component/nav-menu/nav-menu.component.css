@@ -1,0 +1,79 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+
+/* Improved CSS for the navbar */
+
+/* Navbar container styling */
+.navbar {
+  background-color: #fff; /* Background color */
+  border-bottom: 1px solid #ccc; /* Add a border at the bottom */
+  box-shadow: 0px 1px 5px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+}
+
+/* Navbar brand text styling */
+.navbar-brand {
+  font-size: 24px; /* Increase font size for the brand */
+  font-weight: bold; /* Make it bold */
+  color: #FFF; /* Text color */
+}
+
+/* Navbar toggler button styling */
+.navbar-toggler {
+  border: none; /* Remove the border */
+  background-color: transparent; /* Make it transparent */
+}
+
+/* Navbar links styling */
+.navbar-nav .nav-item {
+  margin-right: 20px; /* Add spacing between items */
+}
+
+.nav-link {
+  font-size: 18px; /* Increase font size for the links */
+  color: #fff !important; /* Text color */
+  transition: color 0.3s; /* Add a smooth color transition */
+}
+
+/* Change link color on hover */
+.nav-link:hover {
+  color: #007bff; /* Hover color */
+}
+
+/* Active link styling */
+.link-active .nav-link {
+  color: #007bff; /* Active link color */
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+  .navbar-toggler {
+    border: 1px solid #007bff; /* Add a border to the toggler button */
+    background-color: #007bff; /* Toggler button background color */
+  }
+
+  .navbar-toggler-icon {
+    background-color: #fff; /* Toggler icon color */
+  }
+
+  /* Center the toggle button on small screens */
+  .navbar-collapse {
+    justify-content: center;
+  }
+}

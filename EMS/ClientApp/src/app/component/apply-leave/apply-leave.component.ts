@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { LeaveService } from 'src/app/Services/LeaveService';
 import { LeaveRequest } from 'src/app/models/apply-leave.model';
-import { DataService } from 'src/app/shared/Service/DataService';
+
 
 @Component({
-  selector: 'app-apply-leave',
+  selector: 'apply-leave',
   templateUrl: './apply-leave.component.html',
   styleUrls: ['./apply-leave.component.css']
 })
@@ -24,7 +25,7 @@ export class ApplyLeaveComponent implements OnInit {
     leaveId:0
   };
 
-  constructor(private dataService: DataService, private router: Router) { }
+  constructor(private leaveService: LeaveService, private router: Router) { }
 
   ngOnInit(): void {
     // Set default values here if needed
@@ -38,11 +39,9 @@ export class ApplyLeaveComponent implements OnInit {
     this.leaveRequest.requestComments = this.remarks;
     this.leaveRequest.requestingEmployeeId = 123; // Replace with the actual employee ID
 
-    this.dataService.applyLeave(this.leaveRequest).subscribe(
+    this.leaveService.applyLeave(this.leaveRequest).subscribe(
       (response) => {
-        console.log('Leave request submitted successfully:', response);
-        // Handle success, reset form, or navigate to another page as needed
-        this.router.navigate(['/fetch-data']);
+        this.router.navigate(['/leave-data']);
       },
       (error) => {
         console.error('Error submitting leave request:', error);

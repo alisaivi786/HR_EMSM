@@ -1,0 +1,27 @@
+<div class="background-container">
+  <video autoplay loop muted playsinline id="video-background">
+    <source src="https://oss.menaitechsystems.com/SALAMA/application/hrms/DB/skins/Light/login/Background/3.mov" type="video/mp4">
+  </video>
+
+  <div class="form-container">
+    <form (submit)="login()">
+      <img class="mb-4" src="assets/ems.png" alt="" width="72" height="57">
+      <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+      <div class="form-floating mb-2">
+        <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com" [(ngModel)]="email" name="email">
+        <label for="floatingInput">Email address</label>
+      </div>
+
+      <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="floatingPassword" placeholder="Password" [(ngModel)]="password" name="password">
+        <label for="floatingPassword">Password</label>
+      </div>
+
+      <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
+      <p class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </form>
+   <app-auth-footer></app-auth-footer>
+    
+  </div>
+</div>

@@ -1,20 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { AuthComponent } from './layouts/auth/auth.component';
-import { AdminComponent } from './layouts/admin/admin.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { AuthGuard } from './shared/Service/AuthGuard';
+import { AuthComponent } from './views/auth/auth.component';
+import { LeaveDataComponent } from './views/leave-data/leave-data.component';
+import { AuthGuard } from './shared/AuthGuard';
 import { ApplyLeaveComponent } from './component/apply-leave/apply-leave.component';
+import { HomePageComponent } from './views/home-page/home-page.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 
 
 
 const routes: Routes = [
-  { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthGuard] },
-  { path: 'login', component: AuthComponent, pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'apply-leave', component: ApplyLeaveComponent, canActivate: [AuthGuard] },
-  { path: '', component: AdminComponent, canActivate: [AuthGuard] },
+  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: 'login', component: AuthLayoutComponent },
+  { path: '', component: AppLayoutComponent, canActivate: [AuthGuard],
+    children: [
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'home-page', component: HomePageComponent },
+      { path: 'leave-data', component: LeaveDataComponent },
+      { path: 'apply-leave', component: ApplyLeaveComponent },
+      
+      // Add more routes for the main application here
+    ],
+  },
+  // Add any other routes here, like a "404 Not Found" page
 ];
 
 

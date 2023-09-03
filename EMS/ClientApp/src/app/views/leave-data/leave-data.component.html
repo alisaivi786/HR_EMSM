@@ -1,0 +1,39 @@
+<br/>
+<h1 id="tableLabel">Leave Requests Details</h1>
+<br/>
+<a class="btn btn-primary" [routerLink]="['/apply-leave']">Apply for Leave</a>
+<br/><br/>
+<p *ngIf="!leaveResponse"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="leaveResponse">
+  <thead>
+    <tr>
+      <th>Sr</th>
+      <th>Start Date</th>
+      <th>End Date</th>
+      <th>Comments</th>
+      <th>Status</th>
+      <th>Requested Date</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let leave of leaveResponse; let i = index">
+      <td>{{ i + 1 }}</td>
+      <td>{{ leave.startDate | date }}</td>
+      <td>{{ leave.endDate | date }}</td>
+      <td>{{ leave.requestComments }}</td>
+      <td>
+        <!-- Use a conditional statement to determine the status -->
+        {{ leave.approved ? 'Approved' : (leave.cancelled ? 'Rejected' : 'Pending') }}
+      </td>
+      <td>{{ leave.dateRequested | date }}</td>
+      <td>
+        <!-- Add a delete button with a click event -->
+        <button class="btn btn-danger" (click)="deleteLeaveRequest(leave.leaveId)">
+          <i class="fas fa-trash-alt"></i> Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

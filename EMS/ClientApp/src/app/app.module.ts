@@ -1,32 +1,39 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './nav-menu/nav-menu.component';
-import { HomeComponent } from './home/home.component';
-import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { DataService } from './shared/Service/DataService';
-import { AdminComponent } from './layouts/admin/admin.component';
-import { AuthComponent } from './layouts/auth/auth.component';
+import { NavMenuComponent } from './component/nav-menu/nav-menu.component';
+import { DashboardComponent } from './views/dashboard/dashboard.component';
+import { LeaveDataComponent } from './views/leave-data/leave-data.component';
+import { AuthComponent } from './views/auth/auth.component';
 import { AppRoutingModule } from './app-routing.module';
-import { AuthGuard } from './shared/Service/AuthGuard';
+import { AuthGuard } from './shared/AuthGuard';
 import { AuthFooterComponent } from './component/auth-footer/auth-footer.component';
 import { DashboardCardComponent } from './component/dashboard-card/dashboard-card.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApplyLeaveComponent } from './component/apply-leave/apply-leave.component';
+import { ApiService } from './Services/ApiService';
+import { LeaveService } from './Services/LeaveService';
+import { DashboardService } from './Services/DashboardService';
+import { HomePageComponent } from './views/home-page/home-page.component';
+import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { AuthInterceptor } from './Services/AuthInterceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    HomeComponent,
-    FetchDataComponent,
-    AdminComponent,
+    DashboardComponent,
+    LeaveDataComponent,
     AuthComponent,
     AuthFooterComponent,
     DashboardCardComponent,
     ApplyLeaveComponent,
+    HomePageComponent,
+    AuthLayoutComponent,
+    AppLayoutComponent,
 
   ],
   imports: [
@@ -37,7 +44,11 @@ import { ApplyLeaveComponent } from './component/apply-leave/apply-leave.compone
     BrowserAnimationsModule,
     
   ],
-  providers: [DataService,AuthGuard],
+  providers: [AuthGuard,ApiService,LeaveService,DashboardService,{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -27,7 +27,10 @@ public class JwtTokenValidationMiddleware
         var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Replace("Bearer ", "");
 
         // Check if the request is for the login endpoint
-        if (context.Request.Path.StartsWithSegments("/auth/login"))
+        if (context.Request.Path.StartsWithSegments("/api/auth/login") 
+            || context.Request.Path.StartsWithSegments("/api/auth/get-token")
+            || context.Request.Path.StartsWithSegments("/api/auth/token-auhtenticated")
+            )
         {
             // Allow anonymous access to the login endpoint
             await _next(context);
