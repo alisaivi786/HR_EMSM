@@ -1,8 +1,11 @@
-﻿namespace HR.EMS.Domain.Abstract;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HR.EMS.Domain.Abstract;
 
 public abstract class BaseEntity
 {
     [ExcludeParameter]
+    [Key]
     public long Id { get; set; }
     public Guid? RowId { get; set; } = Guid.NewGuid();
     public DateTime? DateCreated { get; set; } = DateTime.Now;

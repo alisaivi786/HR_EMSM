@@ -10,12 +10,12 @@ public class RoleConfiguration : IEntityTypeConfiguration<Roles>
              new Roles
              {
                  Id = 1,
-                 Name = "Admin"
+                 Name = "admin"
              },
              new Roles
              {
                  Id = 2,
-                 Name = "Employee"
+                 Name = "employee"
              }
         );
     }

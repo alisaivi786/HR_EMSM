@@ -24,12 +24,22 @@ public class HrDatabaseContext : DbContext, IHrDatabaseContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Users>()
+        .HasOne(u => u.Role)
+        .WithMany() // No need for a collection here as it's a one-to-one relationship
+        .HasForeignKey(u => u.RoleId);
+
         modelBuilder.ApplyConfiguration(new LeaveNatureConfiguration());
         modelBuilder.ApplyConfiguration(new LeaveTypeConfiguration());
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new LeaveRequestConfiguration());
         base.OnModelCreating(modelBuilder);
+    }
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseLazyLoadingProxies(); // Enable lazy loading
+        base.OnConfiguring(optionsBuilder);
     }
 
 }

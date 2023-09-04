@@ -26,25 +26,6 @@ export class AuthService {
     return this.apiService.get('auth/token-auhtenticated');
   }
 
-  // isAuthenticated(): boolean {
-  //   // Add your authentication logic here
-  //   // For example, check if the user is logged in or has a valid token
-  //   this.getTokenValidation().subscribe(response => {
-  //     if (response.success && response.error === null) {
-  //       this.isAuthenticatedData = true;
-  //       console.log("IF");
-  //     } else {
-  //       this.isAuthenticatedData = false;
-  //       console.log("IFELSE");
-  //     }
-  //   }, error => {
-  //     this.isAuthenticatedData = false;
-  //     console.log("ERROR");
-  //   });
-
-  //   return this.isAuthenticatedData;
-  // }
-
   isAuthenticated(): Observable<boolean> {
     return this.getTokenValidation().pipe(
       take(1),

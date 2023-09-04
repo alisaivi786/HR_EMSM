@@ -21,8 +21,8 @@ public class AuthRepository : GenericRepository<Users>, IAuthRepository
     {
         try
         {
-            var user = await Table.FirstOrDefaultAsync(u => u.UserName == authRequest.UserName);
-
+            var user = await Table.Include(u => u.Role).FirstOrDefaultAsync(u => u.UserName == authRequest.UserName);
+            //await _context.Entry(user).Reference(u => u.Role).LoadAsync();
             if (user == null || !Encryption.VerifyPasswordHash(authRequest.Password, user.Password))
             {
                 return new APIResponse<AuthResponseDTO>

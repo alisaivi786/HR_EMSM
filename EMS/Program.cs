@@ -4,7 +4,11 @@ using HR.EMS.Infrastructure;
 using HR.EMS.Infrastructure.Middlewares;
 using HR.EMS.Presistence;
 using HR.EMS.Presistence.UnitOfWork;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,7 +25,36 @@ builder.Services.AddSingleton(application);
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 // Add Custom Infrastructure
 builder.Services.AddInfrastructure(ApplicationSettings: application);
-// Add Middleware
+
+//Configure JWT Authentication
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = application.TokenSecret, 
+            ValidAudience = "v1", 
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(application.TokenSecret))
+        };
+    });
+//Create Authorization Policies
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("AdminPolicy", policy =>
+        policy.RequireClaim(ClaimTypes.Role, "admin"));
+    options.AddPolicy("EmployeePolicy", policy =>
+       policy.RequireClaim("role", "employee")); 
+    options.AddPolicy("CombinedPolicy", policy =>
+    {
+        policy.RequireClaim(ClaimTypes.Role, "admin", "employee");
+        // Add any additional requirements if needed
+    });
+});
+
+
 
 var app = builder.Build();
 
@@ -42,7 +75,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 // Use the custom middleware in the pipeline
 
-app.UseMiddleware<JwtTokenValidationMiddleware>();
+//app.UseMiddleware<JwtTokenValidationMiddleware>();
 
 app.MapControllerRoute(
     name: "default",

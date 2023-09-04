@@ -12,7 +12,7 @@ import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 
 
 const routes: Routes = [
-  { path: '', redirectTo: 'auth/login', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: AuthLayoutComponent },
   { path: '', component: AppLayoutComponent, canActivate: [AuthGuard],
     children: [

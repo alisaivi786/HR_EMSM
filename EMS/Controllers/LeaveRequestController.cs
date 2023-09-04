@@ -16,6 +16,7 @@ using HR.EMS.Common.Response;
 
 namespace EMS.Controllers
 {
+    [Authorize(Policy = "CombinedPolicy")]
     [Route("api/leave")] // Updated route prefix
     [ApiController]
     public class LeaveRequestController : ControllerBase

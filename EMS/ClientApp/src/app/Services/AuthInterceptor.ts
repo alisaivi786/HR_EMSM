@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (this.authService.isAuthenticated()) {
+        if (error.status === 401) {
           // Redirect to the login page if the user is not authenticated
           this.authService.redirectToLogin();
         }

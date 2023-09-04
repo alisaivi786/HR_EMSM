@@ -1,5 +1,6 @@
 ﻿using HR.EMS.Application.Configurations;
 using HR.EMS.Domain;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace HR.EMS.Application.JWT;
 
@@ -24,7 +26,7 @@ public static class JWTTokenAuthincation
     /// </summary>
     /// <param name="user">The user for whom to generate the token.</param>
     /// <returns>The generated JWT token.</returns>
-    public static string GenerateJwtToken(Users user,ApplicationSettings applicationSettings)
+    public static string GenerateJwtToken(Users user, ApplicationSettings applicationSettings)
     {
         var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(applicationSettings.TokenSecret));
 
@@ -32,24 +34,26 @@ public static class JWTTokenAuthincation
 
         var claims = new[]
         {
-            new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-            new Claim(ClaimTypes.Name, user.UserName),
-            // Add additional claims here
-            new Claim(ClaimTypes.Role, $"{user.RoleId}"),
-            // Add additional claims here
-        };
+        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new Claim(ClaimTypes.Name, user.UserName),
+        new Claim(ClaimTypes.Role, user?.Role?.Name), // Adjust the role based on the user's actual role
+    };
 
         var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = new ClaimsIdentity(claims),
-            Expires = DateTime.UtcNow.AddMinutes(50), // Token expiration time
-            SigningCredentials = credentials
+            Expires = DateTime.UtcNow.AddMinutes(30), // Token expiration time
+            SigningCredentials = credentials,
+            Issuer = applicationSettings.TokenSecret, // Use the correct issuer
+            Audience = "v1", // Use the correct audience
         };
 
         var tokenHandler = new JwtSecurityTokenHandler();
         var jwtToken = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(jwtToken);
     }
+
+
     public static bool ValidateJwtToken(string token, ApplicationSettings applicationSettings)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
@@ -57,12 +61,16 @@ public static class JWTTokenAuthincation
 
         var validationParameters = new TokenValidationParameters
         {
-            ValidateIssuer = false, 
-            ValidateAudience = false, 
+            ValidateIssuer = true, 
+            ValidateAudience = true, 
             ValidateLifetime = true, 
             ValidateIssuerSigningKey = true,
+            ValidIssuer = applicationSettings.TokenSecret,
+            ValidAudience = "v1",
             IssuerSigningKey = securityKey,
         };
+
+
 
         try
         {
@@ -86,6 +94,8 @@ public static class JWTTokenAuthincation
             ValidateAudience = false,
             ValidateLifetime = true, 
             ValidateIssuerSigningKey = true,
+            ValidIssuer = applicationSettings.TokenSecret,
+            ValidAudience = "v1",
             IssuerSigningKey = securityKey,
         };
 

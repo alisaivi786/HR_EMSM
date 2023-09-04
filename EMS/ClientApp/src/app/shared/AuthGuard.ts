@@ -8,7 +8,20 @@ import { AuthService } from '../Services/AuthService';
 })
 export class AuthGuard implements CanActivate {
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService) {
+    // Execute isAuthenticated here in the constructor
+    //this.checkIsAuthenticated();
+  }
+
+  // private async checkIsAuthenticated(): Promise<void> {
+  //   const isAuthenticated = await this.authService.isAuthenticated();
+
+  //   if (!isAuthenticated) {
+  //     // Token is expired or not present, you can handle this here
+  //     // For example, you might want to redirect to the login page
+  //     this.router.navigate(['/login']);
+  //   }
+  // }
 
   async canActivate(
     next: ActivatedRouteSnapshot,
