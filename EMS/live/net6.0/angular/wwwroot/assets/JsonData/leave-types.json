@@ -1,0 +1,19 @@
+[
+    {
+      "value": "Paid",
+      "label": "Paid"
+    },
+    {
+      "value": "Unpaid",
+      "label": "Unpaid"
+    },
+    {
+      "value": "Sick",
+      "label": "Sick"
+    },
+    {
+      "value": "Vacation",
+      "label": "Vacation"
+    }
+  ]
+  
