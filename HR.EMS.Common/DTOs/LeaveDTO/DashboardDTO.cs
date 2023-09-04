@@ -11,5 +11,6 @@ namespace HR.EMS.Common.DTOs.LeaveDTO
         public string? Pending { get; set; }
         public string? Reject { get; set; }
         public string? Approved { get; set; }
+        public string? TotalEmployeeLeave { get; set; }
     }
 }

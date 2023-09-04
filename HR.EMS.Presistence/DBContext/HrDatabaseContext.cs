@@ -34,6 +34,7 @@ public class HrDatabaseContext : DbContext, IHrDatabaseContext
         modelBuilder.ApplyConfiguration(new RoleConfiguration());
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new LeaveRequestConfiguration());
+        modelBuilder.ApplyConfiguration(new LeaveAllocationConfiguration());
         base.OnModelCreating(modelBuilder);
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

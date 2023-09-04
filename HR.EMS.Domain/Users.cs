@@ -10,6 +10,7 @@ public class Users : BaseEntity
     public string? Email { get; set; }
     public string? UserName { get; set; }
     public string? Password { get; set; }
+    public long? GenderId { get; set; }
     public bool IsEmailConfirmed { get; set; } = false;
     [ForeignKey("Id")]
     public long RoleId { get; set; } = 2;

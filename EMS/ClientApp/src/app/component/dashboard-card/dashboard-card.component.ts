@@ -9,5 +9,6 @@ export class DashboardCardComponent {
   @Input() title: string | undefined;
   @Input() content: string | undefined;
   @Input() buttonLabel: string | undefined;
+  @Input() cardClass: string | undefined; 
  
 }

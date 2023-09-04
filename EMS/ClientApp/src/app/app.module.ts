@@ -24,6 +24,8 @@ import { LeaveTypeDropdownComponent } from './component/leave-type-dropdown/leav
 import { LeaveNatureDropdownComponent } from './component/leave-nature-dropdown/leave-nature-dropdown.component';
 import { LeaveNatureService } from './Services/LeaveNature';
 import { LeaveTypeService } from './Services/LeaveTypeService';
+import { PieChartComponent } from './component/pie-chart/pie-chart.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { LeaveTypeService } from './Services/LeaveTypeService';
     AppLayoutComponent,
     LeaveTypeDropdownComponent,
     LeaveNatureDropdownComponent,
+    PieChartComponent,
 
   ],
   imports: [
@@ -48,7 +51,8 @@ import { LeaveTypeService } from './Services/LeaveTypeService';
     FormsModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgChartsModule
     
   ],
   providers: [AuthGuard,ApiService,LeaveService,DashboardService,

@@ -54,7 +54,28 @@
 
 /* Define the right (orange) side */
 .card-orange {
-  flex: 0; /* Do not occupy any flex space (20% of the card) */
-  background-color: #506999; /* Set the orange background color */
-  color: #fff; /* Set text color on the orange side */
+  flex: 0; 
+  background-color: #506999; 
+  color: #fff; 
+}
+
+
+.card-green {
+  background-color: green;
+  color: #fff;
+}
+
+.card-blue-shade {
+  background-color: rgb(13, 112, 130);
+  color: #fff;
+}
+
+.card-blue {
+  background-color: blue;
+  color: #fff;
+}
+
+.card-red {
+  background-color: red; 
+  color: #fff;
 }

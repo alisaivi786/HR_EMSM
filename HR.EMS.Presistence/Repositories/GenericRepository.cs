@@ -168,35 +168,44 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
 
     public async Task<DashboardDTO> DashboardData(int EmployeeId)
     {
-        using (SqlConnection connection = new SqlConnection(_applicationSettings.ConnectionString.SqlConnection))
+        try
         {
-            using (SqlCommand command = new SqlCommand("GetEmployeeLeaveStats", connection))
+            using (SqlConnection connection = new SqlConnection(_applicationSettings.ConnectionString.SqlConnection))
             {
-                command.CommandType = CommandType.StoredProcedure;
-
-                // Add parameters for the stored procedure
-                command.Parameters.AddWithValue("@EmployeeId", EmployeeId);
-
-                await connection.OpenAsync();
-
-                using (SqlDataReader reader = command.ExecuteReader())
+                using (SqlCommand command = new SqlCommand("CalculateLeaveSummaryByEmployee", connection))
                 {
-                    if (reader.Read())
-                    {
-                        int totalCanceled = (int)reader["TotalCanceled"];
-                        int totalPending = (int)reader["TotalPending"];
-                        int totalApproved = (int)reader["TotalApproved"];
+                    command.CommandType = CommandType.StoredProcedure;
 
-                        return new DashboardDTO() {  Pending = totalPending.ToString(), Approved = totalApproved.ToString(), Reject = totalCanceled.ToString() };
-                    }
-                    else
+                    // Add parameters for the stored procedure
+                    command.Parameters.AddWithValue("@EmployeeId", EmployeeId);
+
+                    await connection.OpenAsync();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
                     {
-                        
+                        if (reader.Read())
+                        {
+                            int totalCanceled = (int)reader["TotalRejectLeave"];
+                            int totalPending = (int)reader["TotalPendingLeave"];
+                            int totalApproved = (int)reader["TotalAvailedLeave"];
+                            int TotalEmployeeLeave = (int)reader["TotalEmployeeLeave"];
+
+                            return new DashboardDTO() { Pending = totalPending.ToString(), Approved = totalApproved.ToString(), Reject = totalCanceled.ToString() , TotalEmployeeLeave  = TotalEmployeeLeave.ToString()};
+                        }
+                        else
+                        {
+
+                        }
                     }
                 }
             }
         }
-        return new DashboardDTO() { Pending = "0", Approved = "0", Reject = "0"};
+        catch (Exception)
+        {
+            return new DashboardDTO() { Pending = "0", Approved = "0", Reject = "0", TotalEmployeeLeave = "0" };
+        }
+        
+        return new DashboardDTO() { Pending = "0", Approved = "0", Reject = "0", TotalEmployeeLeave  = "0"};
     }
 
     private bool Save()

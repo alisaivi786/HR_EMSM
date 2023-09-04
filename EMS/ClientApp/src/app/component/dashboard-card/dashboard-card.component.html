@@ -1,11 +1,8 @@
 <div class="card split-card">
-  <div class="card-orange">
+  <div [ngClass]="cardClass">
       <div class="card-body">
           <h5 class="card-title">{{ title }}</h5>
           <p class="card-text">{{ content }}</p>
       </div>
-  </div>
-  <div class="card-blue">
-      <!-- Content for the blue side goes here -->
   </div>
 </div>
