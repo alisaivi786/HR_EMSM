@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LeaveService } from 'src/app/Services/LeaveService';
+import { LeaveTypeService } from 'src/app/Services/LeaveTypeService';
 import { LeaveRequest } from 'src/app/models/apply-leave.model';
 
 
@@ -10,43 +12,75 @@ import { LeaveRequest } from 'src/app/models/apply-leave.model';
   styleUrls: ['./apply-leave.component.css']
 })
 export class ApplyLeaveComponent implements OnInit {
-  startDate: Date = new Date(); // Set a default date, e.g., today's date
-  endDate: Date = new Date();   // Set a default date, e.g., today's date
-  leaveType: string = '';       // Initialize with an empty string
-  leaveNature: string = '';     // Initialize with an empty string
-  remarks: string = '';         // Initialize with an empty string
-
-  leaveRequest: LeaveRequest = {
-    startDate: this.startDate,
-    endDate: this.endDate,
-    leaveTypeId: 1,            // Replace with the actual leave type ID
-    requestComments: this.remarks,
-    requestingEmployeeId: 123, // Replace with the actual employee ID
-    leaveId:0
-  };
-
-  constructor(private leaveService: LeaveService, private router: Router) { }
+  errorText: string | null = null;
+  leaveForm!: FormGroup;
+  leaveRequest: LeaveRequest | undefined;
+  constructor( 
+    private router: Router,
+    private fb: FormBuilder,
+    private leaveService : LeaveService
+    ) { }
 
   ngOnInit(): void {
-    // Set default values here if needed
-    this.leaveNature = 'local'; // Set 'local' as the default value
+    this.leaveForm = this.fb.group({
+      startDate: ['', Validators.required], 
+      endDate: ['', Validators.required],
+      reason: [''],
+    });
   }
 
-  onSubmit() {
-    this.leaveRequest.startDate = this.startDate;
-    this.leaveRequest.endDate = this.endDate;
-    this.leaveRequest.leaveTypeId = 1; // Replace with the actual leave type ID
-    this.leaveRequest.requestComments = this.remarks;
-    this.leaveRequest.requestingEmployeeId = 123; // Replace with the actual employee ID
 
-    this.leaveService.applyLeave(this.leaveRequest).subscribe(
-      (response) => {
-        this.router.navigate(['/leave-data']);
-      },
-      (error) => {
-        console.error('Error submitting leave request:', error);
-        // Handle error scenarios
+
+  onSubmit() {
+    if (this.leaveForm.valid) {
+      // Handle form submission here
+      console.log(this.leaveForm.value);
+
+      this.leaveRequest = {
+        startDate: this.leaveForm.value.startDate,
+        endDate: this.leaveForm.value.endDate,
+        leaveTypeId: this.leaveForm.value.leaveType,
+        requestComments: this.leaveForm.value.reason,
+        requestingEmployeeId: 1,
+        leaveId: 0
+      };
+      console.log(this.leaveRequest);
+      // Post data to API
+      this.leaveService.applyLeave(this.leaveRequest).subscribe(
+        (response) => {
+          if(response.success){
+            this.errorText = response.message;
+            this.router.navigate(['/leave-data']);
+          }else{
+            this.errorText = response.message;
+          }
+          
+        },
+        (error) => {
+          console.error('Error submitting leave request:', error);
+          // Handle error scenarios
+          if (error.status === 400) {
+            // Handle Bad Request scenario
+            this.errorText = 'Bad request: Please check your input data.';
+          } else {
+            // Handle other error scenarios
+            this.errorText = 'An error occurred while submitting the leave request.';
+          }
+        }
+      );
+
+    } else {
+      // Mark all form controls as touched to display validation messages
+      this.markFormGroupTouched(this.leaveForm);
+    }
+  }
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      control.markAsTouched();
+
+      if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
       }
-    );
+    });
   }
 }

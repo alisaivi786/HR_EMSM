@@ -1,0 +1,10 @@
+<div class="form-group">
+    <label for="leaveNature"><b>Leave Nature</b></label>
+    <select id="leaveNature" class="form-control" [formControl]="leaveNatureControl">
+        <option value="">Select Leave Nature</option>
+        <option *ngFor="let leaveNature of leaveNatures" [value]="leaveNature.value">{{ leaveNature.label }}</option>
+    </select>
+    <div *ngIf="leaveNatureControl.invalid && leaveNatureControl.touched" class="text-danger">
+        Leave Nature is required.
+    </div>
+</div>

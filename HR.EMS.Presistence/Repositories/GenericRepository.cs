@@ -135,8 +135,8 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
                 command.Parameters.AddWithValue("@RequestComments", leaveRequest.RequestComments);
                 command.Parameters.AddWithValue("@Approved", leaveRequest.Approved);
                 command.Parameters.AddWithValue("@Cancelled", leaveRequest.Cancelled);
-                command.Parameters.AddWithValue("@EmployeeId", leaveRequest.RequestingEmployeeId);
-                command.Parameters.AddWithValue("@RequestingEmployeeId", leaveRequest.RequestingEmployeeId);
+                command.Parameters.AddWithValue("@EmployeeId", leaveRequest.EmployeeId);
+                command.Parameters.AddWithValue("@RequestingEmployeeId", leaveRequest.EmployeeId);
                 command.Parameters.AddWithValue("@RowId", leaveRequest.RowId);
                 command.Parameters.AddWithValue("@DateCreated", leaveRequest.DateCreated);
                 command.Parameters.AddWithValue("@CreatedBy", leaveRequest.CreatedBy);

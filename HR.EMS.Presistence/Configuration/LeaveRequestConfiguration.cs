@@ -22,7 +22,7 @@ namespace HR.EMS.Presistence.Configuration
                     RequestComments = "Vacation leave",
                     Approved = true,
                     Cancelled = false,
-                    RequestingEmployeeId = 1 // Set the appropriate RequestingEmployeeId
+                    EmployeeId = 1 // Set the appropriate RequestingEmployeeId
                 },
                 // Entry 2
                 new LeaveRequest
@@ -35,7 +35,7 @@ namespace HR.EMS.Presistence.Configuration
                     RequestComments = "Sick leave",
                     Approved = false,
                     Cancelled = true,
-                    RequestingEmployeeId = 1 // Set the appropriate RequestingEmployeeId
+                    EmployeeId = 1 // Set the appropriate RequestingEmployeeId
                 },
                 // Entry 3
                 new LeaveRequest
@@ -48,7 +48,7 @@ namespace HR.EMS.Presistence.Configuration
                     RequestComments = "Study leave",
                     Approved = true,
                     Cancelled = false,
-                    RequestingEmployeeId = 1 // Set the appropriate RequestingEmployeeId
+                    EmployeeId = 1 // Set the appropriate RequestingEmployeeId
                 },
                //Entry 10
                 new LeaveRequest
@@ -61,7 +61,7 @@ namespace HR.EMS.Presistence.Configuration
                     RequestComments = "Holiday leave",
                     Approved = true,
                     Cancelled = false,
-                    RequestingEmployeeId = 1 // Set the appropriate RequestingEmployeeId
+                    EmployeeId = 1 // Set the appropriate RequestingEmployeeId
                 }
             );
         }

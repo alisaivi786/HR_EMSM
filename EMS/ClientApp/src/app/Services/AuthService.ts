@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AuthResponse } from '../models/auth-response.model';
 import { ApiService } from './ApiService';
-import { Observable } from 'rxjs';
+import { Observable, catchError, map, of, take } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable({
@@ -26,20 +26,39 @@ export class AuthService {
     return this.apiService.get('auth/token-auhtenticated');
   }
 
-  isAuthenticated(): boolean {
-    // Add your authentication logic here
-    // For example, check if the user is logged in or has a valid token
-    this.getTokenValidation().subscribe(response => {
-      if (response.success && response.error === null) {
-        this.isAuthenticatedData = true;
-      } else {
-        this.isAuthenticatedData = false;
-      }
-    }, error => {
-      this.isAuthenticatedData = false;
-    });
+  // isAuthenticated(): boolean {
+  //   // Add your authentication logic here
+  //   // For example, check if the user is logged in or has a valid token
+  //   this.getTokenValidation().subscribe(response => {
+  //     if (response.success && response.error === null) {
+  //       this.isAuthenticatedData = true;
+  //       console.log("IF");
+  //     } else {
+  //       this.isAuthenticatedData = false;
+  //       console.log("IFELSE");
+  //     }
+  //   }, error => {
+  //     this.isAuthenticatedData = false;
+  //     console.log("ERROR");
+  //   });
 
-    return this.isAuthenticatedData;
+  //   return this.isAuthenticatedData;
+  // }
+
+  isAuthenticated(): Observable<boolean> {
+    return this.getTokenValidation().pipe(
+      take(1),
+      map(response => {
+        if (response.success && response.error === null) {
+          return true;
+        } else {
+          return false;
+        }
+      }),
+      catchError(error => {
+        return of(false); // Handle the error gracefully and return false
+      })
+    );
   }
 
   getTokenFromCookies(): string {

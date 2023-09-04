@@ -12,23 +12,23 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using HR.EMS.Common.Response;
 
 namespace EMS.Controllers
 {
     [Route("api/leave")] // Updated route prefix
     [ApiController]
-    //[Authorize] // Applied authorization to all actions
     public class LeaveRequestController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly ApplicationSettings _applicationSettings;
-        private readonly ILogger<LeaveRequestController> _logger;
+        private string userId = "";
 
-        public LeaveRequestController(ILogger<LeaveRequestController> logger, IUnitOfWork unitOfWork, ApplicationSettings applicationSettings)
+        public LeaveRequestController(IUnitOfWork unitOfWork, ApplicationSettings applicationSettings)
         {
-            _logger = logger;
             _unitOfWork = unitOfWork;
             _applicationSettings = applicationSettings;
+           
         }
 
         [HttpGet("leave-details")] // Updated route name to be more consistent
@@ -48,10 +48,12 @@ namespace EMS.Controllers
         [HttpPost("apply-leave")] // Updated route name to be more consistent
         public async Task<IActionResult> ApplyLeave(LeaveRequestDTO requestDTO)
         {
-            // Access the claims and identity data
-            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            var userName = User.FindFirst(ClaimTypes.Name)?.Value;
-            var userRole = User.FindFirst(ClaimTypes.Role)?.Value;
+            if (HttpContext.Request.Cookies.TryGetValue("auth_token", out string authToken))
+            {
+                JWTTokenAuthincation.ValidateJwtToken(authToken, _applicationSettings, out ClaimsIdentity identity);
+                Claim nameIdentifierClaim = identity.FindFirst(ClaimTypes.NameIdentifier);
+                userId = nameIdentifierClaim.Value;
+            }
 
             requestDTO.RequestingEmployeeId = Convert.ToInt64(userId);
 
@@ -61,8 +63,11 @@ namespace EMS.Controllers
             {
                 return Ok(response);
             }
-
-            return Unauthorized();
+            else
+            {
+                return BadRequest(response);
+            }
+            
         }
 
         [HttpPut("delete-leave")] // Updated route name to be more consistent

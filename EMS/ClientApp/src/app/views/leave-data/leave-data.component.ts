@@ -8,6 +8,8 @@ import { LeaveService } from '../../Services/LeaveService';
   templateUrl: './leave-data.component.html'
 })
 export class LeaveDataComponent {
+  showMessage: boolean = false;
+  message : string = "";
   public leaveResponse: LeaveData[] = [];
   public leavId : number |undefined;
   constructor(private leaveService: LeaveService) {
@@ -29,7 +31,14 @@ export class LeaveDataComponent {
     // Call your API service to update the leave request with the soft delete flag
     this.leaveService.deleteLeave(updatedLeaveRequest).subscribe(
       (response) => {
+        // Display the message
+        this.showMessage = true;
+        this.message = response.message;
         this.loadLeaveDetails();
+        // Set a timeout to hide the message after 5 seconds
+        setTimeout(() => {
+          this.showMessage = false;
+        }, 2000); // 1000 milliseconds (5 seconds)
       },
       (error) => {
         // Handle error scenarios
