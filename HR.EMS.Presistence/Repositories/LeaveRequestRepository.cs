@@ -23,11 +23,16 @@ public class LeaveRequestRepository : GenericRepository<LeaveRequest>, ILeaveReq
                 RequestComments = leaveRequest.RequestComments,
                 DateRequested = DateTime.Now,
                 LeaveTypeId = leaveRequest.LeaveTypeId,
-                RequestingEmployeeId = leaveRequest.RequestingEmployeeId,
+                EmployeeId = leaveRequest.RequestingEmployeeId,
+                CreatedBy = leaveRequest.RequestingEmployeeId,
+                //EmployeeId = leaveRequest.RequestingEmployeeId
             };
 
             //var result = await SaveLeaveRequestAsync(entity);
-            var addedEntity = await AddAsync(entity);
+            //var addedEntity = await AddAsync(entity);
+            //var addedEntity = DapperHelper.DapperHelper.ExecuteStoredProcedure<LeaveRequest>("InsertLeaveRequest", entity);
+            //var addedEntity = AdoHelper.AdoNetHelper.ExecuteStoredProcedure("InsertLeaveRequest", entity);
+            var addedEntity = AdoHelper.AdoNetHelper.ExecuteStoredProcedure<LeaveRequest>("InsertLeaveRequest", entity);
 
             if (addedEntity.Success)
             {
@@ -40,7 +45,7 @@ public class LeaveRequestRepository : GenericRepository<LeaveRequest>, ILeaveReq
                     EndDate = leaveRequest.EndDate,
                     DateRequested = DateTime.Now,
                     RequestComments = leaveRequest.RequestComments,
-                    LeaveType = "",// Need Code Factor
+                    LeaveTypeId = leaveRequest.LeaveTypeId,// Need Code Factor
                     Employee = "ALI"
                 };
                 return new APIResponse<LeaveResponseDTO>

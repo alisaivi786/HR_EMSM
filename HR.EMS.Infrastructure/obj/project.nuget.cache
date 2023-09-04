@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "NvgbuTgReXe6Grc5rBnwXyDpfnudb995tFnfQg/e82lRiaqFf+iZ3HnSMYf0X5juz5WYAoGPHqwnvImSLz+L+Q==",
+  "dgSpecHash": "oGsweFoPWLduwjw9bi+g3C1Rvl/v6D4eWggV6jxlB0J9Flula8QAEWIQEeKfhMjfkzoyeG5vGTBAswzrQbeS8w==",
   "success": true,
   "projectFilePath": "D:\\Angular Dev\\HR_EMS\\HR.EMS.Infrastructure\\HR.EMS.Infrastructure.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.abstractions\\2.2.0\\microsoft.aspnetcore.authentication.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authentication.core\\2.2.0\\microsoft.aspnetcore.authentication.core.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.authorization\\2.2.0\\microsoft.aspnetcore.authorization.2.2.0.nupkg.sha512",

@@ -8,7 +8,7 @@ public class LeaveResponseDTO
 
     public DateTime EndDate { get; set; }
     
-    public string? LeaveType { get; set; }
+    public long? LeaveTypeId { get; set; }
 
     public DateTime DateRequested { get; set; }
 

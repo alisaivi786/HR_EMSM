@@ -1,8 +1,11 @@
+<!-- Add this div to display the error message -->
+<div *ngIf="errorText" class="alert alert-danger">{{ errorText }}</div>
+
 <form [formGroup]="leaveForm" (ngSubmit)="onSubmit()">
   <div class="form-group">
     <label for="startDate">Start Date</label>
     <input type="date" id="startDate" class="form-control" formControlName="startDate" />
-    <div *ngIf="leaveForm.get('startDate').invalid && leaveForm.get('startDate').touched" class="text-danger">
+    <div *ngIf="leaveForm.get('startDate')?.invalid && leaveForm.get('startDate')?.touched" class="text-danger">
       Start Date is required.
     </div>
   </div>
@@ -10,37 +13,26 @@
   <div class="form-group">
     <label for="endDate">End Date</label>
     <input type="date" id="endDate" class="form-control" formControlName="endDate" />
-    <div *ngIf="leaveForm.get('endDate').invalid && leaveForm.get('endDate').touched" class="text-danger">
+    <div *ngIf="leaveForm.get('endDate')?.invalid && leaveForm.get('endDate')?.touched" class="text-danger">
       End Date is required.
     </div>
   </div>
 
-  <div class="form-group">
-    <label for="leaveNature">Leave Nature</label>
-    <input type="text" id="leaveNature" class="form-control" formControlName="leaveNature" />
-    <div *ngIf="leaveForm.get('leaveNature').invalid && leaveForm.get('leaveNature').touched" class="text-danger">
-      Leave Nature is required.
-    </div>
-  </div>
+  <leave-type-dropdown [parentForm]="leaveForm"></leave-type-dropdown>
 
-  <div class="form-group">
-    <label for="leaveType">Leave Type</label>
-    <select id="leaveType" class="form-control" formControlName="leaveType">
-      <option value="">Select Leave Type</option>
-      <option value="Paid">Paid</option>
-      <option value="Unpaid">Unpaid</option>
-      <option value="Sick">Sick</option>
-      <option value="Vacation">Vacation</option>
-    </select>
-    <div *ngIf="leaveForm.get('leaveType').invalid && leaveForm.get('leaveType').touched" class="text-danger">
-      Leave Type is required.
-    </div>
-  </div>
+  <leave-nature-dropdown [parentForm]="leaveForm"></leave-nature-dropdown>
+  
+  
 
+ 
   <div class="form-group">
-    <label for="remarks">Remarks</label>
-    <textarea id="remarks" class="form-control" formControlName="remarks"></textarea>
+    <label for="reason">Reason</label>
+    <textarea id="reason" class="form-control" formControlName="reason"></textarea>
   </div>
-
-  <button type="submit" class="btn btn-primary">Submit</button>
+  
+  <!-- Submit and Cancel buttons -->
+  <div class="form-group">
+    <input class="btn btn-primary" type="submit" text="Submit"/>
+    <a class="btn btn-danger" style="margin-left: 5px; width: 80px;" type="button" routerLink="/leave-data" text="Back">Cancel</a>
+  </div>
 </form>

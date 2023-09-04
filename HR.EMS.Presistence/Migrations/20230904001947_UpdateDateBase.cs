@@ -8,11 +8,42 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace HR.EMS.Presistence.Migrations
 {
     /// <inheritdoc />
-    public partial class updatedatabase : Migration
+    public partial class UpdateDateBase : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.CreateTable(
+                name: "ApiLogs",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RequestMethod = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestHeaders = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestBody = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    StatusCode = table.Column<int>(type: "int", nullable: false),
+                    ResponseHeaders = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    ResponseBody = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RequestTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ResponseTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ElapsedMilliseconds = table.Column<int>(type: "int", nullable: true),
+                    RowId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<long>(type: "bigint", nullable: true),
+                    DateModified = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    ModifiedBy = table.Column<long>(type: "bigint", nullable: true),
+                    DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DeletedBy = table.Column<long>(type: "bigint", nullable: true),
+                    IsActive = table.Column<bool>(type: "bit", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ApiLogs", x => x.Id);
+                });
+
             migrationBuilder.CreateTable(
                 name: "LeaveNatures",
                 columns: table => new
@@ -164,8 +195,7 @@ namespace HR.EMS.Presistence.Migrations
                     RequestComments = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Approved = table.Column<bool>(type: "bit", nullable: true),
                     Cancelled = table.Column<bool>(type: "bit", nullable: false),
-                    EmployeeId = table.Column<long>(type: "bigint", nullable: true),
-                    RequestingEmployeeId = table.Column<long>(type: "bigint", nullable: false),
+                    EmployeeId = table.Column<long>(type: "bigint", nullable: false),
                     RowId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CreatedBy = table.Column<long>(type: "bigint", nullable: true),
@@ -189,7 +219,8 @@ namespace HR.EMS.Presistence.Migrations
                         name: "FK_LeaveRequests_Users_EmployeeId",
                         column: x => x.EmployeeId,
                         principalTable: "Users",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -197,8 +228,8 @@ namespace HR.EMS.Presistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateDeleted", "DateModified", "DeletedBy", "IsActive", "IsDeleted", "ModifiedBy", "Name", "RowId" },
                 values: new object[,]
                 {
-                    { 1L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8171), null, null, null, true, false, null, "Travel", new Guid("b5c299ee-5002-45a6-96b6-45de55ff4476") },
-                    { 2L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8185), null, null, null, true, false, null, "Local", new Guid("1177f887-20bc-4daf-93b0-7e9f0e37ece3") }
+                    { 1L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(6082), null, null, null, true, false, null, "Travel", new Guid("7652a302-6712-4a26-87b8-293813e894a0") },
+                    { 2L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(6097), null, null, null, true, false, null, "Local", new Guid("63f1f7db-a068-4106-9b88-f4cc9da688cd") }
                 });
 
             migrationBuilder.InsertData(
@@ -206,10 +237,10 @@ namespace HR.EMS.Presistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateDeleted", "DateModified", "DefaultDays", "DeletedBy", "IsActive", "IsDeleted", "ModifiedBy", "Name", "RowId" },
                 values: new object[,]
                 {
-                    { 1L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8451), null, null, 10, null, true, false, null, "Sick Leave", new Guid("eba6c596-2d2c-4ffc-bd05-bc9e766f499c") },
-                    { 2L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8453), null, null, 20, null, true, false, null, "Annual Leave", new Guid("5885a574-87a2-4516-82ed-d3787aa4429d") },
-                    { 3L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8455), null, null, 15, null, true, false, null, "Study Leave", new Guid("f215edb1-560c-49ca-a4ff-04cf8194bc23") },
-                    { 4L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8471), null, null, 90, null, true, false, null, "Maternal Leave", new Guid("d06759d9-e927-4697-8c4f-acbd2a0eb722") }
+                    { 1L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(6474), null, null, 10, null, true, false, null, "Sick Leave", new Guid("31a63f11-bf82-4d5f-8a8a-d799df0214d4") },
+                    { 2L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(7036), null, null, 20, null, true, false, null, "Annual Leave", new Guid("a8d35cfb-d83f-428f-8cd6-eab49a3cd551") },
+                    { 3L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(7043), null, null, 15, null, true, false, null, "Study Leave", new Guid("131671fc-a9e2-4859-8308-7a29f3603525") },
+                    { 4L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(7046), null, null, 90, null, true, false, null, "Maternal Leave", new Guid("72927656-e38e-40cb-b83c-484934e66da2") }
                 });
 
             migrationBuilder.InsertData(
@@ -217,19 +248,8 @@ namespace HR.EMS.Presistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateDeleted", "DateModified", "DeletedBy", "IsActive", "IsDeleted", "ModifiedBy", "Name", "RowId" },
                 values: new object[,]
                 {
-                    { 1L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8547), null, null, null, true, false, null, "Admin", new Guid("be0fc40e-3b79-4767-a1c8-48525872fc28") },
-                    { 2L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(8549), null, null, null, true, false, null, "Employee", new Guid("8a8f6628-f89a-43e4-9599-d00969cc94f3") }
-                });
-
-            migrationBuilder.InsertData(
-                table: "LeaveRequests",
-                columns: new[] { "Id", "Approved", "Cancelled", "CreatedBy", "DateCreated", "DateDeleted", "DateModified", "DateRequested", "DeletedBy", "EmployeeId", "EndDate", "IsActive", "IsDeleted", "LeaveTypeId", "ModifiedBy", "RequestComments", "RequestingEmployeeId", "RowId", "StartDate" },
-                values: new object[,]
-                {
-                    { 1L, true, false, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9761), null, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9770), null, null, new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 1L, null, "Vacation leave", 1L, new Guid("c0224489-fef2-4d71-b8e3-f24e54e2cca8"), new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 2L, false, true, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9774), null, null, new DateTime(2023, 8, 28, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9775), null, null, new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 2L, null, "Sick leave", 1L, new Guid("d55f634b-8cf0-4770-975f-02bca373487f"), new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 3L, true, false, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9791), null, null, new DateTime(2023, 8, 23, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9792), null, null, new DateTime(2023, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 3L, null, "Study leave", 1L, new Guid("ca0237a4-4cc4-44a3-8644-9e3f753a4521"), new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
-                    { 10L, true, false, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9800), null, null, new DateTime(2023, 8, 18, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9802), null, null, new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 1L, null, "Holiday leave", 1L, new Guid("b6292a4c-9602-47cb-b56b-f8a35215e140"), new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                    { 1L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(7198), null, null, null, true, false, null, "Admin", new Guid("e9546ff5-09ac-445a-82ca-bf8180658534") },
+                    { 2L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(7224), null, null, null, true, false, null, "Employee", new Guid("013536d9-7166-4761-8508-7715199ce1d8") }
                 });
 
             migrationBuilder.InsertData(
@@ -237,8 +257,19 @@ namespace HR.EMS.Presistence.Migrations
                 columns: new[] { "Id", "CreatedBy", "DateCreated", "DateDeleted", "DateModified", "DeletedBy", "Email", "FirstName", "IsActive", "IsDeleted", "IsEmailConfirmed", "LastName", "ModifiedBy", "Password", "RoleId", "RowId", "UserName" },
                 values: new object[,]
                 {
-                    { 1L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9593), null, null, null, "ali.mushtaq@example.com", "Ali", true, false, true, "Mushtaq", null, "sTqk3XRhvv9XejHhEKV0NGdW6ZrkDfls4x+9AwrB6TE=", 1L, new Guid("d1840b66-2ca8-420b-86d0-df357adb5151"), "alimushtaq" },
-                    { 2L, null, new DateTime(2023, 9, 2, 3, 27, 11, 886, DateTimeKind.Local).AddTicks(9598), null, null, null, "junaid.mushtaq@example.com", "Junaid", true, false, true, "Mushtaq", null, "sTqk3XRhvv9XejHhEKV0NGdW6ZrkDfls4x+9AwrB6TE=", 2L, new Guid("1e1fc135-fa7a-4fb5-89bd-09c6ed078c6b"), "junaidmushtaq" }
+                    { 1L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8725), null, null, null, "ali.mushtaq@example.com", "Ali", true, false, true, "Mushtaq", null, "sTqk3XRhvv9XejHhEKV0NGdW6ZrkDfls4x+9AwrB6TE=", 1L, new Guid("b0925a75-d802-4b9a-979a-68aa2e71a2ac"), "alimushtaq" },
+                    { 2L, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8734), null, null, null, "junaid.mushtaq@example.com", "Junaid", true, false, true, "Mushtaq", null, "sTqk3XRhvv9XejHhEKV0NGdW6ZrkDfls4x+9AwrB6TE=", 2L, new Guid("b551c0f9-cf96-4cea-bb04-37fd1b86dc20"), "junaidmushtaq" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "LeaveRequests",
+                columns: new[] { "Id", "Approved", "Cancelled", "CreatedBy", "DateCreated", "DateDeleted", "DateModified", "DateRequested", "DeletedBy", "EmployeeId", "EndDate", "IsActive", "IsDeleted", "LeaveTypeId", "ModifiedBy", "RequestComments", "RowId", "StartDate" },
+                values: new object[,]
+                {
+                    { 1L, true, false, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8893), null, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8901), null, 1L, new DateTime(2023, 9, 5, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 1L, null, "Vacation leave", new Guid("9d8a2350-ef6a-4cdd-83ba-3745f3ef7231"), new DateTime(2023, 9, 1, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 2L, false, true, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8905), null, null, new DateTime(2023, 8, 30, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8907), null, 1L, new DateTime(2023, 10, 20, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 2L, null, "Sick leave", new Guid("bf243d75-9880-4733-9aad-4512d7ddbde2"), new DateTime(2023, 10, 15, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 3L, true, false, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8917), null, null, new DateTime(2023, 8, 25, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8919), null, 1L, new DateTime(2023, 11, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 3L, null, "Study leave", new Guid("111c84bd-e71a-4ad0-847b-08f803b46b27"), new DateTime(2023, 11, 5, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { 10L, true, false, null, new DateTime(2023, 9, 4, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8922), null, null, new DateTime(2023, 8, 20, 4, 19, 46, 992, DateTimeKind.Local).AddTicks(8924), null, 1L, new DateTime(2023, 12, 31, 0, 0, 0, 0, DateTimeKind.Unspecified), true, false, 1L, null, "Holiday leave", new Guid("5813624b-4615-4734-95ce-6abf6a2fe78a"), new DateTime(2023, 12, 25, 0, 0, 0, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -270,6 +301,9 @@ namespace HR.EMS.Presistence.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "ApiLogs");
+
             migrationBuilder.DropTable(
                 name: "LeaveAllocations");
 

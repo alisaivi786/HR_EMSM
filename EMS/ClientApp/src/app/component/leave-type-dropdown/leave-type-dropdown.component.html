@@ -1,0 +1,14 @@
+<div class="form-group">
+    <label for="leaveType"><b>Leave Type</b></label>
+    <select id="leaveType" class="form-control" [formControl]="leaveTypeControl">
+        <option value="">Select Leave Type</option>
+        <option *ngFor="let leaveType of leaveTypes" [value]="leaveType.value">{{ leaveType.label }}</option>
+      </select>
+      <div *ngIf="leaveTypeControl.invalid && leaveTypeControl.touched" class="text-danger">
+        Leave Type is required.
+      </div>
+      
+</div>
+
+
+<!-- leave-type-dropdown.component.html -->

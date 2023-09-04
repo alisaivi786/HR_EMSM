@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "ArbobwFEFaV9l6ZcmF58cUrUorLs9WNBKhaY8/vr4TfI9tcPSJvwNunJkZaN94SOjmwEutUwGb83Kpcdv1IfXg==",
+  "dgSpecHash": "w2BzVeViNgSjpCv7RfNRmGloibugLkU7fjZb6xM6npWtuiJQ2Cxa4VVVRqbOikRU6UeeynlT7HyUtdoug68xQQ==",
   "success": true,
   "projectFilePath": "D:\\Angular Dev\\HR_EMS\\HR.EMS.Presistence\\HR.EMS.Presistence.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\HP\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
+    "C:\\Users\\HP\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
     "C:\\Users\\HP\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\1.1.1\\microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",

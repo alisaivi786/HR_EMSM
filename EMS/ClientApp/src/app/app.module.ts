@@ -20,6 +20,10 @@ import { HomePageComponent } from './views/home-page/home-page.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { AuthInterceptor } from './Services/AuthInterceptor';
+import { LeaveTypeDropdownComponent } from './component/leave-type-dropdown/leave-type-dropdown.component';
+import { LeaveNatureDropdownComponent } from './component/leave-nature-dropdown/leave-nature-dropdown.component';
+import { LeaveNatureService } from './Services/LeaveNature';
+import { LeaveTypeService } from './Services/LeaveTypeService';
 
 @NgModule({
   declarations: [
@@ -34,6 +38,8 @@ import { AuthInterceptor } from './Services/AuthInterceptor';
     HomePageComponent,
     AuthLayoutComponent,
     AppLayoutComponent,
+    LeaveTypeDropdownComponent,
+    LeaveNatureDropdownComponent,
 
   ],
   imports: [
@@ -45,11 +51,16 @@ import { AuthInterceptor } from './Services/AuthInterceptor';
     ReactiveFormsModule
     
   ],
-  providers: [AuthGuard,ApiService,LeaveService,DashboardService,{
+  providers: [AuthGuard,ApiService,LeaveService,DashboardService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true
-  }],
+  },
+  LeaveNatureService,
+  LeaveTypeService
+
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
