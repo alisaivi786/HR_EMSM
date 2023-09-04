@@ -1,0 +1,8 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:44406",
+"LaunchCommand": "npm start",
+"WorkingDirectory": "D:\\Angular Dev\\HR_EMS\\EMS\\ClientApp\\",
+"MaxTimeoutInSeconds": "120"
+}
+}
