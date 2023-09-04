@@ -8,6 +8,7 @@
 		<SpaProxyServerUrl>https://localhost:44406</SpaProxyServerUrl>
 		<SpaProxyLaunchCommand>npm start</SpaProxyLaunchCommand>
 		<ImplicitUsings>enable</ImplicitUsings>
+		<Configurations>Debug;Release;production</Configurations>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -54,7 +55,7 @@
 
 	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
 		<!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-		<Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+		<Exec WorkingDirectory="$(SpaRoot)" Command="npm install --force" />
 		<Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --configuration production" />
 
 		<!-- Include the newly-built files in the publish output -->
