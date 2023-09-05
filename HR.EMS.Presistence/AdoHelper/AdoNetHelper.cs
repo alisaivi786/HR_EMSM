@@ -1,17 +1,13 @@
-﻿using HR.EMS.Application.Configurations;
+﻿using HR.EMS.Application.StaticHelpers;
 using Microsoft.Data.SqlClient;
-using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HR.EMS.Presistence.AdoHelper;
 
 public class AdoNetHelper
 {
     private static readonly string connectionString = new ApplicationSettings().ConnectionString.SqlConnection;
+
 
     public static APIResponse<bool> ExecuteStoredProcedure<T>(string storedProcedureName, T parameterObject)
     {
@@ -51,80 +47,54 @@ public class AdoNetHelper
 
         return new APIResponse<bool> { Data = true, Message = "DataInserted" };
     }
-    public static APIResponse<bool> ExecuteStoredProcedure(string storedProcedureName, LeaveRequest leaveRequest)
+
+    public static APIResponse<bool> InsertQuery<T>(T entity)
     {
+        if (entity == null)
+        {
+            throw new ArgumentNullException(nameof(entity));
+        }
+
+
         try
         {
-            using (SqlConnection connection = new(connectionString))
+            using SqlConnection connection = new(connectionString);
+            connection.Open();
+
+            using SqlCommand command = connection.CreateCommand();
+            var tableName = typeof(T).Name; // Use the name of the type as the table name (assuming the table name matches the type name)
+
+            // Generate SQL query based on properties of the log object
+            var sqlQuery = $@"
+                    INSERT INTO {tableName} ({StaticHelpers.GetColumnNames(entity)})
+                    VALUES ({StaticHelpers.GetParameterNames(entity)})";
+
+            command.CommandText = sqlQuery;
+
+            // Create parameters for each property
+            foreach (var property in typeof(T).GetProperties())
             {
-                connection.Open();
 
-                using SqlCommand command = new(storedProcedureName, connection);
-                command.CommandType = CommandType.StoredProcedure;
-
-                // Add parameters to the command
-                command.Parameters.Add(new SqlParameter("@StartDate", leaveRequest.StartDate));
-                command.Parameters.Add(new SqlParameter("@EndDate", leaveRequest.EndDate));
-                command.Parameters.Add(new SqlParameter("@LeaveTypeId", leaveRequest.LeaveTypeId));
-                command.Parameters.Add(new SqlParameter("@DateRequested", leaveRequest.DateRequested));
-                command.Parameters.Add(new SqlParameter("@RequestComments", leaveRequest.RequestComments));
-                command.Parameters.Add(new SqlParameter("@Approved", leaveRequest.Approved));
-                command.Parameters.Add(new SqlParameter("@Cancelled", leaveRequest.Cancelled));
-                command.Parameters.Add(new SqlParameter("@EmployeeId", leaveRequest.EmployeeId));
-                command.Parameters.Add(new SqlParameter("@RequestingEmployeeId", leaveRequest.EmployeeId));
-                command.Parameters.Add(new SqlParameter("@RowId", leaveRequest.RowId));
-                command.Parameters.Add(new SqlParameter("@DateCreated", leaveRequest.DateCreated));
-                command.Parameters.Add(new SqlParameter("@CreatedBy", leaveRequest.CreatedBy));
-                if(leaveRequest.DateModified != null)
+                // Check if the property is marked with the [ExcludeParameter] attribute
+                if (Attribute.IsDefined(property, typeof(ExcludeParameterAttribute)))
                 {
-                    command.Parameters.Add(new SqlParameter("@DateModified", leaveRequest.DateModified));
-                }
-                else
-                {
-                    command.Parameters.Add(new SqlParameter("@DateModified", DBNull.Value));
-                }
-                if (leaveRequest.ModifiedBy != null)
-                {
-                    command.Parameters.Add(new SqlParameter("@ModifiedBy", leaveRequest.ModifiedBy));
-                }
-                else
-                {
-                    command.Parameters.Add(new SqlParameter("@ModifiedBy", DBNull.Value));
+                    continue; // Skip this property
                 }
 
-                if (leaveRequest.DateDeleted != null)
-                {
-                    command.Parameters.Add(new SqlParameter("@DateDeleted", leaveRequest.DateDeleted));
-                }
-                else
-                {
-                    command.Parameters.Add(new SqlParameter("@DateDeleted", DBNull.Value));
-                }
-                if (leaveRequest.DeletedBy != null)
-                {
-                    command.Parameters.Add(new SqlParameter("@DeletedBy", leaveRequest.DeletedBy));
-                }
-                else
-                {
-                    command.Parameters.Add(new SqlParameter("@DeletedBy", DBNull.Value));
-                }
-                command.Parameters.Add(new SqlParameter("@IsActive", leaveRequest.IsActive));
-                command.Parameters.Add(new SqlParameter("@IsDeleted", leaveRequest.IsDeleted));
+                var paramName = $"@{property.Name}";
+                var paramValue = property.GetValue(entity) ?? DBNull.Value;
 
-                // Execute the stored procedure
-                command.ExecuteNonQuery();
+                command.Parameters.Add(new SqlParameter(paramName, paramValue));
             }
 
-
-            return new APIResponse<bool>() { Data = true , Message = Constants.DataInserted };
+            int rowsAffected = command.ExecuteNonQuery();
+            return new APIResponse<bool>() { Data = true, Message = Constants.DataInserted };
         }
         catch (Exception ex)
         {
-
-            return new APIResponse<bool>() { Success = false, Message = ex.Message };
+            return new APIResponse<bool>() { Data = true, Message = ex.Message, Success = false };
         }
-
-        
-
     }
+
+    
 }

@@ -35,15 +35,24 @@ namespace EMS.Controllers
         [HttpGet("leave-details")] // Updated route name to be more consistent
         public async Task<IActionResult> GetLeaveDetails()
         {
-            // Validation is already done with [Authorize] attribute
+           
+            //// Simulate an inner exception
+            //var exception = new Exception("Main exception message");
+            //// Simulate an inner exception
+            //var innerException = new InvalidOperationException("Inner exception message", exception);
+            //// Create a custom exception with the inner exception
+            //throw new Exception("Custom exception message", innerException);
+
             var response = await _unitOfWork.LeaveRequestRepository.GetAllAsync();
 
             if (response.Success)
             {
                 return Ok(response);
             }
-
-            return Unauthorized(response);
+            else
+            {
+                return BadRequest(response);
+            }
         }
 
         [HttpPost("apply-leave")] // Updated route name to be more consistent
@@ -87,8 +96,10 @@ namespace EMS.Controllers
             {
                 return Ok(response);
             }
-
-            return Unauthorized();
+            else
+            {
+                return BadRequest(response);
+            }
         }
 
         [HttpGet("dashboard")] // Updated route name to be more consistent
@@ -103,8 +114,10 @@ namespace EMS.Controllers
             {
                 return Ok(response);
             }
-
-            return Unauthorized();
+            else
+            {
+                return BadRequest(response);
+            }
         }
     }
 }
