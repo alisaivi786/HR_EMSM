@@ -37,4 +37,28 @@ public static class StaticHelpers
 
         return string.Join(", ", propertyNames);
     }
+
+    public static string GetSqlScriptContent(string scriptPath)
+    {
+        try
+        {
+            return File.ReadAllText(scriptPath);
+        }
+        catch (Exception ex)
+        {
+            // Handle or log any errors when reading the script files
+            Console.WriteLine($"Error reading SQL script '{scriptPath}': {ex.Message}");
+            return string.Empty;
+        }
+    }
+
+    public static IEnumerable<string> GetSqlScriptsFromDirectory(string directoryPath)
+    {
+        if (Directory.Exists(directoryPath))
+        {
+            var sqlScriptFiles = Directory.GetFiles(directoryPath, "*.sql");
+            return sqlScriptFiles.Select(GetSqlScriptContent).Where(content => !string.IsNullOrWhiteSpace(content));
+        }
+        return Enumerable.Empty<string>();
+    }
 }

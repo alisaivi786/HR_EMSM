@@ -1,20 +1,32 @@
+<!-- <div class="container">
+  
+</div> -->
 <div class="container">
   <div class="row">
-    <div class="col-3">
+    <div class="col-md-4 col-sm-6">
       <dashboard-card [cardClass]="'card-green'" title="Availed Leave" [content]="totalLeaves" buttonLabel="View Details"></dashboard-card>
     </div>
-    <div class="col-3">
+    <div class="col-md-4 col-sm-6">
       <dashboard-card [cardClass]="'card-blue-shade'" title="Pending leave" [content]="totalPendingRequests" buttonLabel="View Details"></dashboard-card>
     </div>
-    <div class="col-3">
+  </div>
+  <div class="row">
+    <div class="col-md-4 col-sm-6">
       <dashboard-card [cardClass]="'card-blue'" title="Remaining Leave" [content]="remainingBalance" buttonLabel="View Details"></dashboard-card>
     </div>
-    <div class="col-3">
+    <div class="col-md-4 col-sm-6">
       <dashboard-card [cardClass]="'card-red'" title="Rejected Leave" [content]="totalCanceledRequests" buttonLabel="View Details"></dashboard-card>
     </div>
   </div>
-  <div>
-    <!-- <pie-chart [pieChartData]="chartData"></pie-chart> -->
+  <div class="container d-flex justify-content-center align-items-center">
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <pie-chart [pieChartData]="chartData"></pie-chart>
+      </div>
+    </div>
   </div>
+  
 </div>
 
+
+<!-- <pie-chart [pieChartData]="chartData"></pie-chart> -->

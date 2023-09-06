@@ -7,7 +7,6 @@ public class ApiLogs: BaseEntity
     public string? RequestHeaders { get; set; }
     public string? RequestBody { get; set; }
     public int StatusCode { get; set; }
-    public string? ResponseHeaders { get; set; }
     public string? ResponseBody { get; set; }
     public DateTime? RequestTime { get; set; }
     public DateTime? ResponseTime { get; set; }

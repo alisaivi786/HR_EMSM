@@ -4,6 +4,7 @@ using HR.EMS.Infrastructure.DBContext.Configurations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using HR.EMS.Presistence.Configuration;
+using HR.EMS.Application.StaticHelpers;
 
 namespace HR.EMS.Presistence.DBContext;
 
@@ -35,7 +36,15 @@ public class HrDatabaseContext : DbContext, IHrDatabaseContext
         modelBuilder.ApplyConfiguration(new UserConfiguration());
         modelBuilder.ApplyConfiguration(new LeaveRequestConfiguration());
         modelBuilder.ApplyConfiguration(new LeaveAllocationConfiguration());
+
+
+
+
         base.OnModelCreating(modelBuilder);
+
+
+        modelBuilder.Entity<object>().HasNoKey().ToSqlQuery("EXEC sp_executesql N'" +
+            File.ReadAllText("D:\\Angular Dev\\HR_EMS\\HR.EMS.Presistence\\StoredProcedures\\SP_CreateCalculateLeaveSummaryByEmployee.sql") + "'");
     }
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {

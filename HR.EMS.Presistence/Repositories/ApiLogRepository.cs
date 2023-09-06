@@ -22,7 +22,7 @@ namespace HR.EMS.Presistence.Repositories
                 RequestHeaders = request.RequestHeaders,
                 RequestBody = request.RequestBody,
                 StatusCode = request.StatusCode,
-                ResponseHeaders = request.ResponseHeaders,
+                //ResponseHeaders = request.ResponseHeaders,
                 ResponseBody = request.ResponseBody,
             };
 
