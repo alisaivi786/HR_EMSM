@@ -60,7 +60,7 @@ body{padding-top: 80px;}
   z-index: 1;
   max-width: 380px;
   margin: auto;
-  color: white;
+  /* color: white; */
   
 }
 
@@ -68,3 +68,6 @@ body{padding-top: 80px;}
   margin: 0;
 }
 
+.form-container input {
+  color: blue; /* You can change 'blue' to 'black' or any other color you prefer */
+}
